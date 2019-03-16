@@ -1,0 +1,5 @@
+json.id(book.id)
+json.eg_id(book.eg_id)
+json.name(book.name)
+json.author(book.author)
+json.publisher(book.publisher)

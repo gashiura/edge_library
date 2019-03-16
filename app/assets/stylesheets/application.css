@@ -13,3 +13,40 @@
  *= require_tree .
  *= require_self
  */
+
+@import url("reset.css");
+
+body {
+  font: 1em "メイリオ", "Meiryo", "ヒラギノ角ゴ Pro W3", "Hiragino Kaku Gothic Pro", "ＭＳ Ｐゴシック", sans-serif;
+}
+
+#wrapper {
+  width: 1280px;
+  margin: 0 auto;
+}
+
+input {
+  font-size: 14px;
+  width: 300px;
+  height: 25px;
+  padding: 5px 10px;
+  border-radius: 10px;
+  background: #f5f5f5;
+  outline: 0;
+}
+
+button {
+  font-size: 14px;
+  width: 200px;
+  height: 40px;
+  padding: 10px;
+  border-radius: 10px;
+  color: white;
+  background: black;
+  outline: 0;
+}
+
+button:hover {
+  color: black;
+  background: #ffffb7;
+}
