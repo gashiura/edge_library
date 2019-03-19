@@ -3,13 +3,13 @@
   <div id="books-title">書籍一覧</div>
   <div id="books-count">現在1000件中  1〜20件目を表示しています。</div>
   <div v-for="book in books" :key="book.id" class="book-container">
-    <img :src="book.imagePath" class="book-image">
+    <img :src="book.image_path" class="book-image">
     <div class="book-detail">
       <div class="book-category">{{ book.category }}</div>
       <router-link to="/book/1" class="book-title">{{ book.name }}</router-link>
       <div class="book-author">著書： {{ book.author }}</div>
       <div class="book-publisher">出版社： {{ book.publisher }}</div>
-      <div v-for="tag in book.tags" :key="tag" class="book-tag">{{ tag }}</div>
+      <div v-for="tag in book.tags['tags']" :key="tag" class="book-tag">{{ tag }}</div>
     </div>
     <div class="book-status">
       <button class="status-ok" :class="{'status-rental': isRental(book.status)}">{{ book.status }}</button>
@@ -50,6 +50,9 @@ export default {
     },
     getBooks: function() {
       http.get('/api/books').then(response => (this.books = response.data.books));
+    },
+    imageSrc: function(imageUrl) {
+      return require(imageUrl);
     }
   }
 }

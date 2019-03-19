@@ -38,7 +38,7 @@ books = [
     description: 'いまどきのOSのしくみが、実験と図解でわかる!',
     publisher: '技術評論社',
     category: '技術書',
-    tags: { list: ['OS', 'Liux'] },
+    tags: { tags: ['OS', 'Linux'] },
     image_path: '../../../assets/images/books/001.jpeg',
     quantity: 1
   },
@@ -50,7 +50,7 @@ books = [
     description: '新しい情報を盛り込み、信頼性や正確さといった目標を重視するという前版からの方針に加えて、\n第3版では、MySQLの動作の仕組みに関する事実だけでなく、MySQLがそのように動作する原理を伝えたいと考えて執筆されています。',
     publisher: 'オライリージャパン',
     category: '技術書',
-    tags: { list: ['RDB','MySQL'] },
+    tags: { tags: ['RDB','MySQL'] },
     image_path: '../../../assets/images/books/002.jpeg',
     quantity: 1
   },
@@ -62,7 +62,7 @@ books = [
     description: 'オブジェクト指向設計の名著として名高い“Practical Object-Oriented Design in Ruby"、待望の翻訳版! 使いこなせるようになるととても便利なオブジェクト指向ですが、「なんとなく」の理解で使っていると、大きな罠にかかってしまいます。本書は、保守性を上げて運用コストを下げるアプリケーションをつくるために、クラス設計から基本概念、継承のテクニック、ダックタイプ、そしてテスト設計まで、幅広くカバーしています。オブジェクト指向言語を使用するすべての人におすすめの1冊です。',
     publisher: '技術評論社',
     category: '技術書',
-    tags: { list: ['Ruby', 'オブジェクト指向'] },
+    tags: { tags: ['Ruby', 'オブジェクト指向'] },
     image_path: '../../../assets/images/books/003.jpeg',
     quantity: 1
   }
