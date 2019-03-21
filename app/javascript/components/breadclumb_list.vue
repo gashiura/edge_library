@@ -1,11 +1,11 @@
 <template>
-<ul class="breadcrumb">
-  <li v-for="breadclumb in breadclumbList" :key="breadclumb.pagename" itemscope="itemscope" itemtype="http://data-vocabulary.org/Breadcrumb">
-    <router-link :to="breadclumb.url" itemprop="url">
-      <span itemprop="title">{{ breadclumb.pagename }}</span>
-    </router-link>
-  </li>
-</ul>
+  <ul class="breadcrumb">
+    <li v-for="breadclumb in breadclumbList" :key="breadclumb.pagename" itemscope="itemscope" itemtype="http://data-vocabulary.org/Breadcrumb">
+      <router-link :to="breadclumb.url" itemprop="url">
+        <span itemprop="title">{{ breadclumb.pagename }}</span>
+      </router-link>
+    </li>
+  </ul>
 </template>
 
 <script>
@@ -15,7 +15,7 @@ export default {
   computed: {
     ...mapGetters(['breadclumbList'])
   }
-}
+};
 </script>
 
 <style lang="scss" scoped>

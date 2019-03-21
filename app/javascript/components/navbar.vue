@@ -1,29 +1,29 @@
 <template>
-<div id="gnavi-wrapper" @click="toggleNavBar">
-  <nav id="gnavi">
-    <div id="del-navi" @click="toggleNavBar">
-      <span></span>
-      <span></span>
-    </div>
-    <ul id="menu">
-      <li><router-link to="/home">ホーム</router-link></li>
-      <li><router-link to="/books">書籍検索</router-link></li>
-      <li><router-link to="/home">アカウント設定</router-link></li>
-      <li><router-link to="/home">ログアウト</router-link></li>
-    </ul>
-  </nav>
-  <div id="gnavi-out"></div>
-</div>
+  <div id="gnavi-wrapper" @click="toggleNavBar">
+    <nav id="gnavi">
+      <div id="del-navi" @click="toggleNavBar">
+        <span></span>
+        <span></span>
+      </div>
+      <ul id="menu">
+        <li><router-link to="/home">ホーム</router-link></li>
+        <li><router-link to="/books">書籍検索</router-link></li>
+        <li><router-link to="/home">アカウント設定</router-link></li>
+        <li><router-link to="/home">ログアウト</router-link></li>
+      </ul>
+    </nav>
+    <div id="gnavi-out"></div>
+  </div>
 </template>
 
 <script>
-import { mapActions } from 'vuex'
+import { mapActions } from 'vuex';
 
 export default {
   methods: {
     ...mapActions(['toggleNavBar'])
   }
-}
+};
 </script>
 
 <style lang="scss" scoped>

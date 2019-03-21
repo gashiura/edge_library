@@ -1,12 +1,9 @@
 <template>
-<div id="search-area">
-  <input id="search-input" placeholder="検索したい書籍名を入力して下さい。">
-  <button id="search-button">検索</button>
-</div>
+  <div id="search-area">
+    <input id="search-input" placeholder="検索したい書籍名を入力して下さい。">
+    <button id="search-button">検索</button>
+  </div>
 </template>
-
-<script>
-</script>
 
 <style lang="scss" scoped>
 #search-area {

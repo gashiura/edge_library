@@ -1,34 +1,34 @@
 <template>
-<div id="rentals-container">
-  <label id="rental-title">レンタル中の書籍</label>
-  <label v-if="hasOverdueBook" id="warinig-message">返却予定日を過ぎている書籍があります。</label>
-  <div v-if="notExistsRetalBook" id="nobook-message">レンタル中の書籍はありません。</div>
-  <table v-else id="table">
-    <thead id="table-header">
-      <tr class="table-row">
-        <th class="col-header" :class="column.styleName" v-for="column in columns" :key="column.name">{{ column.name }}</th>
-      </tr>
-    </thead>
-    <tbody id="table-body">
-      <tr v-for="rental in rentals" :key="rental.id" class="table-row">
-        <td class="cell col-id">{{ rental.eg_id }}</td>
-        <td class="cell col-book">
-          <router-link to="/book/1">{{ rental.book_name }}</router-link>
-        </td>
-        <td class="cell col-checkuout-date">{{ rental.checkout_date }}</td>
-        <td class="cell col-return-due-date" :class="isOverdue(rental.return_due_date),">
-          <i v-if="isOverdue(rental.return_due_date)" class="fas fa-exclamation-circle"></i>
-          {{ rental.return_due_date }}
-        </td>
-        <td class="cell" col-return><button id="return-button">返却</button></td>
-      </tr>
-    </tbody>
-  </table>
-</div>
+  <div id="rentals-container">
+    <label id="rental-title">レンタル中の書籍</label>
+    <label v-if="hasOverdueBook" id="warinig-message">返却予定日を過ぎている書籍があります。</label>
+    <div v-if="notExistsRetalBook" id="nobook-message">レンタル中の書籍はありません。</div>
+    <table v-else id="table">
+      <thead id="table-header">
+        <tr class="table-row">
+          <th class="col-header" :class="column.styleName" v-for="column in columns" :key="column.name">{{ column.name }}</th>
+        </tr>
+      </thead>
+      <tbody id="table-body">
+        <tr v-for="rental in rentals" :key="rental.id" class="table-row">
+          <td class="cell col-id">{{ rental.eg_id }}</td>
+          <td class="cell col-book">
+            <router-link to="/book/1">{{ rental.book_name }}</router-link>
+          </td>
+          <td class="cell col-checkuout-date">{{ rental.checkout_date }}</td>
+          <td class="cell col-return-due-date" :class="isOverdue(rental.return_due_date),">
+            <i v-if="isOverdue(rental.return_due_date)" class="fas fa-exclamation-circle"></i>
+            {{ rental.return_due_date }}
+          </td>
+          <td class="cell" col-return><button id="return-button">返却</button></td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
 </template>
 
 <script>
-import http from '../../api/axios'
+import http from '../../api/axios';
 
 export default {
   data() {
@@ -81,7 +81,7 @@ export default {
       return returnDueDate < new Date();
     }
   }
-}
+};
 </script>
 
 <style lang="scss" scoped>

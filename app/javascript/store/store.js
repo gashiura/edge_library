@@ -14,7 +14,7 @@ export default new Vuex.Store({
       return state.title;
     },
     breadclumbList(state) {
-      return state.breadclumbList
+      return state.breadclumbList;
     },
     enableNavBar(state) {
       return state.enableNavBar;
@@ -36,4 +36,4 @@ export default new Vuex.Store({
       commit('toggleNavBar');
     }
   }
-})
+});

@@ -1,14 +1,14 @@
 <template>
   <div id="content">
-    <rentals></rentals>
-    <favorites></favorites>
+    <rentals/>
+    <favorites/>
   </div>
 </template>
 
 <script>
 import { mapActions } from 'vuex';
 import Rentals from './rentals.vue';
-import Favorites from './favorites.vue'
+import Favorites from './favorites.vue';
 
 export default {
   components: {
@@ -26,7 +26,7 @@ export default {
   methods: {
     ...mapActions(['changeBreadclumbList'])
   }
-}
+};
 </script>
 
 <style lang="scss" scoped>

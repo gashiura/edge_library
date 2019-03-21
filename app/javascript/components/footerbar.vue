@@ -1,8 +1,8 @@
 <template>
-<footer id="footer-container">
-  <hr>
-  <div id="footer-text">Copyright © 2019 MebersEdge .inc All Rights Reserved.</div>
-</footer>
+  <footer id="footer-container">
+    <hr>
+    <div id="footer-text">Copyright © 2019 MebersEdge .inc All Rights Reserved.</div>
+  </footer>
 </template>
 
 <style lang="scss" scoped>

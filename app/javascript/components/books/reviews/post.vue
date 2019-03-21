@@ -1,18 +1,18 @@
 <template>
-<div id="post-container">
-  <h2 class="title">レビューを投稿する</h2>
-  <div id="post-form">
-    <div id="evaluation-container">
-      <h3 class="middle-title">評価</h3>
-      <point :enableClick="true"></point>
-    </div>
-    <div id="review-container">
-      <h3 class="middle-title">レビュー</h3>
-      <textarea id="post-review" v-model="content"></textarea>
-      <button id="post-button">投稿する</button>
+  <div id="post-container">
+    <h2 class="title">レビューを投稿する</h2>
+    <div id="post-form">
+      <div id="evaluation-container">
+        <h3 class="middle-title">評価</h3>
+        <point :enableClick="true"></point>
+      </div>
+      <div id="review-container">
+        <h3 class="middle-title">レビュー</h3>
+        <textarea id="post-review" v-model="content"></textarea>
+        <button id="post-button">投稿する</button>
+      </div>
     </div>
   </div>
-</div>
 </template>
 
 <script>
@@ -27,7 +27,7 @@ export default {
       content: ''
     };
   }
-}
+};
 </script>
 
 <style lang="scss" scoped>

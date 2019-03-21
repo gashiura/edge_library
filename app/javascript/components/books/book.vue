@@ -1,36 +1,36 @@
 <template>
-<div id="book-container">
-  <div id="book-detail-container">
-    <img :src="book.image_url" class="book-image">
-    <div id="book-detail">
-      <div id="book-category">{{ book.category }}</div>
-      <div id="book-title">{{ book.name }}</div>
-      <div id="book-author">著書： {{ book.author }}</div>
-      <div id="book-publisher">出版社： {{ book.publisher }}</div>
-      <div id="tags-container">
-        <div v-for="tag in tags" :key="tag" class="book-tag">{{ tag }}</div>
+  <div id="book-container">
+    <div id="book-detail-container">
+      <img :src="book.image_url" class="book-image">
+      <div id="book-detail">
+        <div id="book-category">{{ book.category }}</div>
+        <div id="book-title">{{ book.name }}</div>
+        <div id="book-author">著書： {{ book.author }}</div>
+        <div id="book-publisher">出版社： {{ book.publisher }}</div>
+        <div id="tags-container">
+          <div v-for="tag in tags" :key="tag" class="book-tag">{{ tag }}</div>
+        </div>
+        <div v-if="isRental" id="rental-message">この書籍はレンタル中です</div>
+        <button v-else id="rental-button">レンタルする</button>
       </div>
-      <div v-if="isRental" id="rental-message">この書籍はレンタル中です</div>
-      <button v-else id="rental-button">レンタルする</button>
     </div>
+    <hr>
+    <div id="description-container">
+      <h2 class="title">概要</h2>
+      <div id="description">{{ book.description }}</div>
+    </div>
+    <hr>
+    <reviews :reviews="book.reviews"></reviews>
+    <hr>
+    <post></post>
   </div>
-  <hr>
-  <div id="description-container">
-    <h2 class="title">概要</h2>
-    <div id="description">{{ book.description }}</div>
-  </div>
-  <hr>
-  <reviews :reviews="book.reviews"></reviews>
-  <hr>
-  <post></post>
-</div>
 </template>
 
 <script>
 import { mapActions } from 'vuex';
-import Reviews from './reviews/reviews.vue'
-import Post from './reviews/post.vue'
-import http from '../../api/axios'
+import Reviews from './reviews/reviews.vue';
+import Post from './reviews/post.vue';
+import http from '../../api/axios';
 
 export default {
   components: {
@@ -40,7 +40,7 @@ export default {
   data() {
     return {
       book: {}
-    }
+    };
   },
   created: function() {
     this.changeBreadclumbList([
@@ -61,7 +61,7 @@ export default {
   },
   computed: {
     tags: function() {
-      return this.book.tags["tags"];
+      return this.book.tags['tags'];
     },
     isRental: function() {
       return this.book.status === '貸出中';
@@ -73,7 +73,7 @@ export default {
       http.get(`/api/books/show/${bookId}`).then(response => (this.book = response.data.book));
     }
   }
-}
+};
 </script>
 
 <style lang="scss" scoped>

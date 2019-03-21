@@ -1,33 +1,33 @@
 <template>
-<div id="books-container">
-  <div id="books-subject">書籍一覧</div>
-  <div id="books-count">現在1000件中  1〜20件目を表示しています。</div>
-  <div v-for="book in books" :key="book.id" class="book-container">
-    <img :src="book.image_url" class="book-image">
-    <div class="book-detail">
-      <div class="book-category">{{ book.category }}</div>
-      <router-link to="/book/1" class="book-title">{{ book.name }}</router-link>
-      <div class="book-author">著書： {{ book.author }}</div>
-      <div class="book-publisher">出版社： {{ book.publisher }}</div>
-      <div v-for="tag in book.tags['tags']" :key="tag" class="book-tag">{{ tag }}</div>
+  <div id="books-container">
+    <div id="books-subject">書籍一覧</div>
+    <div id="books-count">現在1000件中  1〜20件目を表示しています。</div>
+    <div v-for="book in books" :key="book.id" class="book-container">
+      <img :src="book.image_url" class="book-image">
+      <div class="book-detail">
+        <div class="book-category">{{ book.category }}</div>
+        <router-link to="/book/1" class="book-title">{{ book.name }}</router-link>
+        <div class="book-author">著書： {{ book.author }}</div>
+        <div class="book-publisher">出版社： {{ book.publisher }}</div>
+        <div v-for="tag in book.tags['tags']" :key="tag" class="book-tag">{{ tag }}</div>
+      </div>
+      <div class="book-status">
+        <button class="status-ok" :class="{'status-rental': isRental(book.status)}">{{ book.status }}</button>
+      </div>
+      <hr>
     </div>
-    <div class="book-status">
-      <button class="status-ok" :class="{'status-rental': isRental(book.status)}">{{ book.status }}</button>
-    </div>
-    <hr>
   </div>
-</div>
 </template>
 
 <script>
 import { mapActions } from 'vuex';
-import http from '../../api/axios'
+import http from '../../api/axios';
 
 export default {
   data() {
     return {
       books: [],
-    }
+    };
   },
   created: function() {
     this.changeBreadclumbList([
@@ -51,7 +51,7 @@ export default {
       http.get('/api/books').then(response => (this.books = response.data.books));
     }
   }
-}
+};
 </script>
 
 <style lang="scss" scoped>

@@ -1,19 +1,19 @@
 <template>
-<div id="favorite-container">
-  <label id="favorite-title">最近のお気に入り</label>
-  <div id="favorite-thumbnail">
-    <button id="back-button">◀︎</button>
-    <div v-for="favorite in favorites" :key="favorite.id" class="image-container">
-      <img :src="favorite.image_url" class="favorite-image">
-      <router-link to="/book/1" class="favorite-link">{{ favorite.book_name }}</router-link>
+  <div id="favorite-container">
+    <label id="favorite-title">最近のお気に入り</label>
+    <div id="favorite-thumbnail">
+      <button id="back-button">◀︎</button>
+      <div v-for="favorite in favorites" :key="favorite.id" class="image-container">
+        <img :src="favorite.image_url" class="favorite-image">
+        <router-link to="/book/1" class="favorite-link">{{ favorite.book_name }}</router-link>
+      </div>
+      <button id="next-button">▶︎</button>
     </div>
-    <button id="next-button">▶︎</button>
   </div>
-</div>
 </template>
 
 <script>
-import http from '../../api/axios'
+import http from '../../api/axios';
 
 export default {
   data() {
@@ -27,10 +27,12 @@ export default {
   },
   methods: {
     getFavorites: function(userId) {
-      http.get(`/api/favorites/${userId}`).then(response => (this.favorites = response.data.favorites));
+      http.get(`/api/favorites/${userId}`).then(response => (
+        this.favorites = response.data.favorites)
+      );
     }
   }
-}
+};
 </script>
 
 <style lang="scss" scoped>

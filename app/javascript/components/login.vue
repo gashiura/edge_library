@@ -1,22 +1,22 @@
 <template>
-<div id="login-container">
-  <label id="title">EdgeLibrary</label>
-  <div id="input-container">
-    <div class="form-item">
-      <div id="item-label">Eメール</div>
-      <input type="text" class="login-input" v-model="email">
+  <div id="login-container">
+    <label id="title">EdgeLibrary</label>
+    <div id="input-container">
+      <div class="form-item">
+        <div id="item-label">Eメール</div>
+        <input type="text" class="login-input" v-model="email">
+      </div>
+      <div class="form-item">
+        <div id="item-label">パスワード</div>
+        <input type="text" class="login-input" v-model="password">
+      </div>
+      <button id="login-button" @click="validate">ログイン</button>
     </div>
-    <div class="form-item">
-      <div id="item-label">パスワード</div>
-      <input type="text" class="login-input" v-model="password">
-    </div>
-    <button id="login-button" @click="validate">ログイン</button>
   </div>
-</div>
 </template>
 
 <script>
-import http from '../api/axios'
+import http from '../api/axios';
 
 export default {
   data() {
@@ -35,11 +35,11 @@ export default {
         alert('パスワードを入力して下さい。');
         return;
       }
-      http.post('/auth', { email: this.email, password: this.password }).then(response => (this.info = response))
+      http.post('/auth', { email: this.email, password: this.password }).then(response => (this.info = response));
       this.$router.push('/home');
     }
   }
-}
+};
 </script>
 
 <style lang="scss" scoped>

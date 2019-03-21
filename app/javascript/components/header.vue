@@ -1,13 +1,13 @@
 <template>
-<header>
-  <router-link to="/home" id="title">{{ title }}</router-link>
-  <div id="btn-gnavi" @click="toggleNavBar">
-    <span></span>
-    <span></span>
-    <span></span>
-  </div>
-  <hr>
-</header>
+  <header>
+    <router-link to="/home" id="title">{{ title }}</router-link>
+    <div id="btn-gnavi" @click="toggleNavBar">
+      <span></span>
+      <span></span>
+      <span></span>
+    </div>
+    <hr>
+  </header>
 </template>
 
 <script>
@@ -20,7 +20,7 @@ export default {
   methods: {
     ...mapActions(['toggleNavBar'])
   }
-}
+};
 </script>
 
 <style lang="scss">
