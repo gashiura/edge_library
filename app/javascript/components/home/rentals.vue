@@ -2,7 +2,7 @@
 <div id="rentals-container">
   <label id="rental-title">レンタル中の書籍</label>
   <label v-if="hasOverdueBook" id="warinig-message">返却予定日を過ぎている書籍があります。</label>
-  <div v-if="notExitsRetalBook" id="nobook-message">レンタル中の書籍はありません。</div>
+  <div v-if="notExistsRetalBook" id="nobook-message">レンタル中の書籍はありません。</div>
   <table v-else id="table">
     <thead id="table-header">
       <tr class="table-row">
@@ -11,12 +11,14 @@
     </thead>
     <tbody id="table-body">
       <tr v-for="rental in rentals" :key="rental.id" class="table-row">
-        <td class="cell col-id">{{ rental.egId }}</td>
-        <td class="cell col-book"><router-link to="/book/1">{{ rental.bookName }}</router-link></td>
-        <td class="cell col-checkuout-date">{{ formatDate(rental.checkoutDate) }}</td>
-        <td class="cell col-return-due-date":class="isOverdue(rental.returnDueDate),">
-          <i v-if="isOverdue(rental.returnDueDate)" class="fas fa-exclamation-circle"></i>
-          {{ formatDate(rental.returnDueDate) }}
+        <td class="cell col-id">{{ rental.eg_id }}</td>
+        <td class="cell col-book">
+          <router-link to="/book/1">{{ rental.book_name }}</router-link>
+        </td>
+        <td class="cell col-checkuout-date">{{ rental.checkout_date }}</td>
+        <td class="cell col-return-due-date" :class="isOverdue(rental.return_due_date),">
+          <i v-if="isOverdue(rental.return_due_date)" class="fas fa-exclamation-circle"></i>
+          {{ rental.return_due_date }}
         </td>
         <td class="cell" col-return><button id="return-button">返却</button></td>
       </tr>
@@ -26,17 +28,19 @@
 </template>
 
 <script>
+import http from '../../api/axios'
+
 export default {
   data() {
     return {
       columns: [
         {
           name: 'ID',
-          styleName: 'col-id'
+          styleName: 'hd-id'
         },
         {
           name: '書籍',
-          styleName: 'col-book'
+          styleName: 'hd-book'
         },
         {
           name: '貸出日',
@@ -48,33 +52,15 @@ export default {
         },
         {
           name: '',
-          styleName: 'col-return'
+          styleName: 'hd-return'
         }
       ],
-      rentals: [
-        {
-          id: 1,
-          egId: "EG000001",
-          bookName: "[試して理解]Linuxのしくみ ~実験と図解で学ぶOSとハードウェアの基礎知識",
-          checkoutDate: new Date(2018, 3, 1, 12, 32),
-          returnDueDate: new Date(2018, 3, 1, 12, 32)
-        },
-        {
-          id: 2,
-          egId: "EG000002",
-          bookName: "実践ハイパフォーマンスMySQL 第3版",
-          checkoutDate: new Date(2019, 3, 1, 12, 32),
-          returnDueDate: new Date(2019, 3, 31, 0, 0)
-        },
-        {
-          id: 3,
-          egId: "EG000003",
-          bookName: "オブジェクト指向設計実践ガイド ~Rubyでわかる 進化しつづける柔軟なアプリケーションの育て方",
-          checkoutDate: new Date(2019, 3, 1, 12, 32),
-          returnDueDate: new Date(2019, 3, 31, 0, 0)
-        }
-      ]
+      rentals: [],
+      userId: 1
     };
+  },
+  created: function() {
+    this.getRentals(this.userId);
   },
   computed: {
     hasOverdueBook: function() {
@@ -83,18 +69,15 @@ export default {
       });
       return overdueBooks.length > 0;
     },
-    notExitsRetalBook: function() {
+    notExistsRetalBook: function() {
       return this.rentals.length == 0;
     }
   },
   methods: {
-    formatDate: dt => {
-      var y = dt.getFullYear();
-      var m = ("00" + (dt.getMonth()+1)).slice(-2);
-      var d = ("00" + dt.getDate()).slice(-2);
-      return y + "/" + m + "/" + d;
+    getRentals: function(userId) {
+      http.get(`/api/rentals/${userId}`).then(response => (this.rentals = response.data.rentals));
     },
-    isOverdue: returnDueDate => {
+    isOverdue: function(returnDueDate) {
       return returnDueDate < new Date();
     }
   }
@@ -147,20 +130,20 @@ export default {
     }
   }
 
-  .col-id {
+  .hd-id {
     width: 80px;
   }
-  .col-book {
+  .hd-book {
     width: 650px;
   }
   .hd-checkuout-date, .hd-return-due-date,
   .col-checkuout-date, .col-return-due-date {
     width: 110px;
   }
-  .col-checkuout-date, .col-return-due-date {
+  .hd-checkuout-date, .hd-return-due-date {
     text-align: center;
   }
-  .col-return {
+  .hd-return {
     width: 100px;
   }
 

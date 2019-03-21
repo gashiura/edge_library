@@ -1,4 +1,4 @@
-require_relative '../../decorators/book_decorator.rb'
+require 'aws-sdk'
 
 class Api::BooksController < ApplicationController
 
@@ -7,8 +7,9 @@ class Api::BooksController < ApplicationController
     render 'index', formats: 'json', handlers: 'jbuilder'
   end
 
-  def test
-    return Book.find(1).decorate
+  def show
+    @book = Book.find_by(id: params[:id]).decorate
+    render 'show', formats: 'json', handlers: 'jbuilder'
   end
 
 end

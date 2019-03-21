@@ -15,11 +15,6 @@ export default {
     Rentals,
     Favorites
   },
-  data() {
-    return {
-      a: 'a'
-    };
-  },
   created: function() {
     this.changeBreadclumbList([
       {

@@ -1,9 +1,9 @@
 <template>
 <ul class="breadcrumb">
   <li v-for="breadclumb in breadclumbList" :key="breadclumb.pagename" itemscope="itemscope" itemtype="http://data-vocabulary.org/Breadcrumb">
-    <a href="breadclumb.url" itemprop="url">
+    <router-link :to="breadclumb.url" itemprop="url">
       <span itemprop="title">{{ breadclumb.pagename }}</span>
-    </a>
+    </router-link>
   </li>
 </ul>
 </template>

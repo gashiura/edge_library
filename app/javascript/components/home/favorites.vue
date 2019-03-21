@@ -4,8 +4,8 @@
   <div id="favorite-thumbnail">
     <button id="back-button">◀︎</button>
     <div v-for="favorite in favorites" :key="favorite.id" class="image-container">
-      <img :src="favorite.imagePath" class="favorite-image">
-      <a href="/" class="favorite-link">{{ favorite.bookName }}</a>
+      <img :src="favorite.image_url" class="favorite-image">
+      <router-link to="/book/1" class="favorite-link">{{ favorite.book_name }}</router-link>
     </div>
     <button id="next-button">▶︎</button>
   </div>
@@ -13,22 +13,22 @@
 </template>
 
 <script>
+import http from '../../api/axios'
+
 export default {
   data() {
     return {
-      favorites: [
-        {
-          id: 1,
-          bookName: '[試して理解]Linuxのしくみ ~実験と図解で学ぶOSとハードウェアの基礎知識',
-          imagePath: require('../../../assets/images/books/001.jpeg')
-        },
-        {
-          id: 2,
-          bookName: '実践ハイパフォーマンスMySQL 第3版',
-          imagePath: require('../../../assets/images/books/002.jpeg')
-        }
-      ]
+      favorites: [],
+      userId: 1
     };
+  },
+  created: function() {
+    this.getFavorites(this.userId);
+  },
+  methods: {
+    getFavorites: function(userId) {
+      http.get(`/api/favorites/${userId}`).then(response => (this.favorites = response.data.favorites));
+    }
   }
 }
 </script>

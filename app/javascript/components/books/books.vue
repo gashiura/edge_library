@@ -1,9 +1,9 @@
 <template>
 <div id="books-container">
-  <div id="books-title">書籍一覧</div>
+  <div id="books-subject">書籍一覧</div>
   <div id="books-count">現在1000件中  1〜20件目を表示しています。</div>
   <div v-for="book in books" :key="book.id" class="book-container">
-    <img :src="book.image_path" class="book-image">
+    <img :src="book.image_url" class="book-image">
     <div class="book-detail">
       <div class="book-category">{{ book.category }}</div>
       <router-link to="/book/1" class="book-title">{{ book.name }}</router-link>
@@ -16,7 +16,6 @@
     </div>
     <hr>
   </div>
-  {{ books }}
 </div>
 </template>
 
@@ -27,7 +26,7 @@ import http from '../../api/axios'
 export default {
   data() {
     return {
-      books: []
+      books: [],
     }
   },
   created: function() {
@@ -38,7 +37,7 @@ export default {
       },
       {
         pagename: '書籍検索',
-        url: '/books/1'
+        url: '/books'
       }
     ]);
     this.getBooks();
@@ -50,9 +49,6 @@ export default {
     },
     getBooks: function() {
       http.get('/api/books').then(response => (this.books = response.data.books));
-    },
-    imageSrc: function(imageUrl) {
-      return require(imageUrl);
     }
   }
 }
@@ -63,7 +59,7 @@ export default {
   width: 900px;
   margin: 30px auto;
 
-  #books-title {
+  #books-subject {
     font-size: 18px;
 
     &:before {

@@ -1,14 +1,14 @@
 <template>
 <div id="book-container">
   <div id="book-detail-container">
-    <img :src="book.imagePath" class="book-image">
+    <img :src="book.image_url" class="book-image">
     <div id="book-detail">
       <div id="book-category">{{ book.category }}</div>
       <div id="book-title">{{ book.name }}</div>
       <div id="book-author">著書： {{ book.author }}</div>
       <div id="book-publisher">出版社： {{ book.publisher }}</div>
       <div id="tags-container">
-        <div v-for="tag in book.tags" :key="tag" class="book-tag">{{ tag }}</div>
+        <div v-for="tag in tags" :key="tag" class="book-tag">{{ tag }}</div>
       </div>
       <div v-if="isRental" id="rental-message">この書籍はレンタル中です</div>
       <button v-else id="rental-button">レンタルする</button>
@@ -30,6 +30,7 @@
 import { mapActions } from 'vuex';
 import Reviews from './reviews/reviews.vue'
 import Post from './reviews/post.vue'
+import http from '../../api/axios'
 
 export default {
   components: {
@@ -38,44 +39,8 @@ export default {
   },
   data() {
     return {
-      book: {
-          id: 1,
-          egId: "EG000001",
-          name: "[試して理解]Linuxのしくみ ~実験と図解で学ぶOSとハードウェアの基礎知識",
-          author: '武内 覚',
-          description: 'いまどきのOSのしくみが、実験と図解でわかる!\n\nITシステムやソフトウェアの開発、運用において、その基盤となるOSやハードウェアのしくみや動作を、\n具体的にイメージすることができるでしょうか。\n\n本書では、サーバ、クラウドからスマートフォン、IoT機器まで幅広く利用されているLinux OSを対象に、\nプロセススケジューラ、メモリ管理、記憶階層、ファイルシステム、ストレージデバイスなど、\nOSとハードウェアに関するしくみがどのように動くのか、\n実験とその結果を示すグラフを用いてわかりやすく解説します。',
-          publisher: '技術評論社',
-          category: '技術書',
-          imagePath: require('../../../assets/images/books/001.jpeg'),
-          status: '貸出中',
-          tags: [
-            'Linux',
-            'OS'
-          ],
-          reviews: [
-            {
-              id: 1,
-              bookId: 1,
-              userId: 1,
-              userName: '東浦 允',
-              content: 'linux初心者が、内部の動作について学ぶのに最適です。この本を読むことで、理解が一段階深まった気がします！',
-              point: 4,
-              createdAt: new Date(2019, 3, 1),
-              updatedAt: new Date(2019, 3, 1)
-            },
-            {
-              id: 2,
-              bookId: 1,
-              userId: 2,
-              userName: 'gashiura',
-              content: '素晴らしい本ですね！絶対読んだ方がいいです！',
-              point: 3,
-              createdAt: new Date(2019, 3, 3),
-              updatedAt: new Date(2019, 3, 3)
-            },
-          ]
-      }
-    };
+      book: {}
+    }
   },
   created: function() {
     this.changeBreadclumbList([
@@ -89,17 +54,24 @@ export default {
       },
       {
         pagename: '書籍詳細',
-        url: '/book/1'
+        url: `/book/${this.$route.params.id}`
       },
     ]);
+    this.getBook(this.$route.params.id);
   },
   computed: {
+    tags: function() {
+      return this.book.tags["tags"];
+    },
     isRental: function() {
-      return this.book.status === '貸出中' ? true : false;
+      return this.book.status === '貸出中';
     }
   },
   methods: {
-    ...mapActions(['changeBreadclumbList'])
+    ...mapActions(['changeBreadclumbList']),
+    getBook: function(bookId) {
+      http.get(`/api/books/show/${bookId}`).then(response => (this.book = response.data.book));
+    }
   }
 }
 </script>

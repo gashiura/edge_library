@@ -4,8 +4,8 @@
   <div v-for="review in reviews" :key="review.id"  class="reviews">
     <div class="review-info">
       <point :point="review.point" :enableClick="false"></point>
-      <div class="review-user">投稿者：{{ review.userName }}</div>
-      <div class="reviwe-date">投稿日：{{ formatDate(review.createdAt) }}</div>
+      <div class="review-user">投稿者：{{ review.user_name }}</div>
+      <div class="reviwe-date">投稿日：{{ review.created_at }}</div>
     </div>
     <div class="review">{{ review.content }}</div>
   </div>
@@ -21,14 +21,6 @@ export default {
   },
   props: {
     reviews: Array
-  },
-  methods: {
-    formatDate: dt => {
-      var y = dt.getFullYear();
-      var m = ("00" + (dt.getMonth()+1)).slice(-2);
-      var d = ("00" + dt.getDate()).slice(-2);
-      return y + "/" + m + "/" + d;
-    }
   }
 }
 </script>

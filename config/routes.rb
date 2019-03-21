@@ -5,8 +5,12 @@ Rails.application.routes.draw do
 
   namespace :api do
     get 'books' => 'books#index'
-    get 'rentals/:book_id/:user_id' => 'rentals#index'
+    get 'books/show/:id' => 'books#show'
+
+    get 'rentals/:user_id' => 'rentals#index'
+
     get 'reviews/:book_id' => 'reviews#index'
-    get 'favorite/:book_id/:user_id' => 'books#index'
+
+    get 'favorites/:user_id' => 'favorites#index'
   end
 end
