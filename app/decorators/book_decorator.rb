@@ -6,7 +6,7 @@ class BookDecorator < Draper::Decorator
     return '貸出可' if object.rentals.blank?
 
     object.rentals.each do |rental|
-      return '貸出不可' if rental.return_date.nil?
+      return '貸出中' if rental.return_date.nil?
     end
 
     return '貸出可'

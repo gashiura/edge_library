@@ -49,7 +49,7 @@ export default {
         url: '/home'
       },
       {
-        pagename: '書籍検索',
+        pagename: '書籍一覧',
         url: '/books'
       },
       {

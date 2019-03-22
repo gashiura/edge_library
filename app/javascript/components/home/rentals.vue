@@ -11,12 +11,12 @@
       </thead>
       <tbody id="table-body">
         <tr v-for="rental in rentals" :key="rental.id" class="table-row">
-          <td class="cell col-id">{{ rental.eg_id }}</td>
-          <td class="cell col-book">
+          <td class="cell hd-id">{{ rental.eg_id }}</td>
+          <td class="cell hd-book">
             <router-link to="/book/1">{{ rental.book_name }}</router-link>
           </td>
-          <td class="cell col-checkuout-date">{{ rental.checkout_date }}</td>
-          <td class="cell col-return-due-date" :class="isOverdue(rental.return_due_date),">
+          <td class="cell hd-checkuout-date">{{ rental.checkout_date }}</td>
+          <td class="cell hd-return-due-date" :class="isOverdue(rental.return_due_date),">
             <i v-if="isOverdue(rental.return_due_date)" class="fas fa-exclamation-circle"></i>
             {{ rental.return_due_date }}
           </td>
@@ -161,7 +161,7 @@ export default {
       .table-row{
         .col-header {
           color: white;
-          background: #008080;
+          background: black;
           padding: 10px;
           border-bottom: 1px gray solid;
         }
@@ -188,7 +188,11 @@ export default {
             padding: 0px;
           }
           #return-button {
-            width: 100px;
+            width: 80px;
+            height: 30px;
+            margin: 0px 20px;
+            color: black;
+            background: white;
           }
         }
         .cell + .cell {

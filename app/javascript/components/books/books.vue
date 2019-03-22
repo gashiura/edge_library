@@ -5,14 +5,23 @@
     <div v-for="book in books" :key="book.id" class="book-container">
       <img :src="book.image_url" class="book-image">
       <div class="book-detail">
-        <div class="book-category">{{ book.category }}</div>
         <router-link to="/book/1" class="book-title">{{ book.name }}</router-link>
-        <div class="book-author">著書： {{ book.author }}</div>
-        <div class="book-publisher">出版社： {{ book.publisher }}</div>
+        <div class="book-category">
+          <label >カテゴリ：</label>
+          <label>{{ book.category }}</label>
+        </div>
+        <div class="book-author">
+          <label>著書：</label>
+          <label>{{ book.author }}</label>
+        </div>
+        <div class="book-publisher">
+          <label>出版社：</label>
+          <label>{{ book.publisher }}</label>
+        </div>
         <div v-for="tag in book.tags['tags']" :key="tag" class="book-tag">{{ tag }}</div>
       </div>
       <div class="book-status">
-        <button class="status-ok" :class="{'status-rental': isRental(book.status)}">{{ book.status }}</button>
+        <div class="status-ok" :class="{'status-rental': isRental(book.status)}">{{ book.status }}</div>
       </div>
       <hr>
     </div>
@@ -36,7 +45,7 @@ export default {
         url: '/home'
       },
       {
-        pagename: '書籍検索',
+        pagename: '書籍一覧',
         url: '/books'
       }
     ]);
@@ -91,15 +100,6 @@ export default {
       vertical-align: top;
       margin: 0px 10px;
 
-      .book-category {
-        font-size: 14px;
-        width: 100px;
-        margin-bottom: 5px;
-        background: gold;
-        border-radius: 10px;
-        text-align: center;
-      }
-
       .book-title {
         display: block;
         font-size: 16px;
@@ -107,7 +107,7 @@ export default {
         margin-bottom: 15px;
       }
 
-      .book-author, .book-publisher {
+      .book-category, .book-author, .book-publisher {
         font-size: 14px;
         word-wrap: break-word;
         margin: 5px 20px;
@@ -115,8 +115,9 @@ export default {
 
       .book-tag {
         display: inline-block;
-        width: 100px;
-        margin: 5px;
+        margin: 10px;
+        padding: 0px 15px;
+        font-size: 12px;
         background: #add8e6;
         border-radius: 10px;
         text-align: center;
@@ -130,16 +131,17 @@ export default {
 
       .status-ok {
         width: 100%;
-        height: 40px;
+        height: 25px;
+        padding: 5px;
         border-radius: 5px;
-        background: #4169e1;
+        background: #ffa500;
         color: white;
         text-align: center;
       }
 
       .status-rental {
         @extend .status-ok;
-        background: #ff6347;
+        background: gray;
       }
     }
   }

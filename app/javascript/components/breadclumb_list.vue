@@ -51,6 +51,5 @@ export default {
   content: '\f015';
   font-weight: 900;
   font-size: 1.1em;
-  color: #008080;
 }
 </style>
