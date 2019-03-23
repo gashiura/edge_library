@@ -11,11 +11,11 @@
 
 <script>
 import { mapGetters } from 'vuex';
-import HeaderBar from './components/header.vue';
-import FooterBar from './components/footerbar.vue';
-import NavBar from './components/navbar.vue';
-import BreadclumbList from './components/breadclumb_list.vue';
-import SearchBar from './components/searchbar.vue';
+import HeaderBar from './components/share/header.vue';
+import FooterBar from './components/share/footerbar.vue';
+import NavBar from './components/share/navbar.vue';
+import BreadclumbList from './components/share/breadclumb_list.vue';
+import SearchBar from './components/share/searchbar.vue';
 
 export default {
   components: {

@@ -51,6 +51,6 @@ end
 
 # Windows does not include zoneinfo files, so bundle the tzinfo-data gem
 gem 'tzinfo-data', platforms: [:mingw, :mswin, :x64_mingw, :jruby]
-gem 'turbolinks'
-gem 'draper'
-gem 'aws-sdk'
+gem 'turbolinks', '~> 5.2.0'
+gem 'draper', '~> 3.1.0'
+gem 'aws-sdk', '~> 3.0.1'
