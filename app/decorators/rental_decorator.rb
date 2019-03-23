@@ -1,3 +1,5 @@
+require 'time'
+
 class RentalDecorator < Draper::Decorator
   delegate_all
 
@@ -9,4 +11,7 @@ class RentalDecorator < Draper::Decorator
     return object.return_due_date.strftime("%Y/%m/%d")
   end
 
+  def overdue
+    return Date.today > object.return_due_date
+  end
 end

@@ -2,8 +2,7 @@
   <div id="rentals-container">
     <label id="rental-title">レンタル中の書籍</label>
     <label v-if="hasOverdueBook" id="warinig-message">返却予定日を過ぎている書籍があります。</label>
-    <div v-if="notExistsRetalBook" id="nobook-message">レンタル中の書籍はありません。</div>
-    <table v-else id="table">
+    <table v-if="existsRetalBook" id="table">
       <thead id="table-header">
         <tr class="table-row">
           <th class="col-header" :class="column.styleName" v-for="column in columns" :key="column.name">{{ column.name }}</th>
@@ -16,8 +15,8 @@
             <router-link to="/book/1">{{ rental.book_name }}</router-link>
           </td>
           <td class="cell col-checkuout-date">{{ rental.checkout_date }}</td>
-          <td class="cell col-return-due-date" :class="isOverdue(rental.return_due_date),">
-            <i v-if="isOverdue(rental.return_due_date)" class="fas fa-exclamation-circle"></i>
+          <td class="cell col-return-due-date">
+            <i v-if="rental.overdue" class="fas fa-exclamation-circle exclamation-mark"></i>
             {{ rental.return_due_date }}
           </td>
           <td class="cell col-return">
@@ -26,6 +25,7 @@
         </tr>
       </tbody>
     </table>
+    <div v-else id="nobook-message">レンタル中の書籍はありません。</div>
   </div>
 </template>
 
@@ -67,20 +67,17 @@ export default {
   computed: {
     hasOverdueBook: function() {
       var overdueBooks = this.rentals.map(rental => {
-        return this.isOverdue(rental.return_due_date);
+        return rental.overdue;
       });
       return overdueBooks.length > 0;
     },
-    notExistsRetalBook: function() {
-      return this.rentals.length == 0;
+    existsRetalBook: function() {
+      return this.rentals.length > 0;
     }
   },
   methods: {
     getRentals: function(userId) {
       http.get(`/api/rentals/${userId}`).then(response => (this.rentals = response.data.rentals));
-    },
-    isOverdue: function(returnDueDate) {
-      return returnDueDate < new Date();
     }
   }
 };
@@ -130,6 +127,10 @@ export default {
       color: blue;
       margin-right: 5px;
     }
+  }
+
+  .exclamation-mark {
+    color: red;
   }
 
   .col-id {
