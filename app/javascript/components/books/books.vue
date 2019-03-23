@@ -5,7 +5,7 @@
     <div v-for="book in books" :key="book.id" class="book-container">
       <img :src="book.image_url" class="book-image">
       <div class="book-detail">
-        <router-link to="/book/1" class="book-title">{{ book.name }}</router-link>
+        <router-link :to="book.url" class="book-title">{{ book.name }}</router-link>
         <div class="book-category">
           <label >カテゴリ：</label>
           <label>{{ book.category }}</label>

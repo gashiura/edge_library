@@ -12,6 +12,10 @@ class BookDecorator < Draper::Decorator
     return '貸出可'
   end
 
+  def url
+    return "/book/#{object.id}"
+  end
+
   def image_url
     return "http://edge-library-local-bucket.s3-website-ap-northeast-1.amazonaws.com/images/books/#{object.id}.jpeg"
   end

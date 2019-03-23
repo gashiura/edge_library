@@ -8,7 +8,9 @@
         <div id="book-author">著書： {{ book.author }}</div>
         <div id="book-publisher">出版社： {{ book.publisher }}</div>
         <div id="tags-container">
-          <div v-for="tag in tags" :key="tag" class="book-tag">{{ tag }}</div>
+          <div v-for="tag in book.tags['tags']" :key="tag" class="book-tag">
+            {{ tag }}
+          </div>
         </div>
         <div v-if="isRental" id="rental-message">この書籍はレンタル中です</div>
         <button v-else id="rental-button">レンタルする</button>
@@ -60,9 +62,6 @@ export default {
     this.getBook(this.$route.params.id);
   },
   computed: {
-    tags: function() {
-      return this.book.tags['tags'];
-    },
     isRental: function() {
       return this.book.status === '貸出中';
     }
@@ -88,7 +87,7 @@ export default {
   #book-detail-container {
     margin: 10px;
 
-    #book-image {
+    .book-image {
       max-width: 200px;
       max-height: 300px;
     }
