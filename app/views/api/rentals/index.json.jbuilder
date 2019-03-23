@@ -4,5 +4,6 @@ json.rentals do
     json.eg_id(rental.book.eg_id)
     json.book_name(rental.book.name)
     json.overdue(rental.overdue)
+    json.book_url(rental.book_url)
   end
 end

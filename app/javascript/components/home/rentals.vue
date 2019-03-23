@@ -12,7 +12,7 @@
         <tr v-for="rental in rentals" :key="rental.id" class="table-row">
           <td class="cell col-id">{{ rental.eg_id }}</td>
           <td class="cell col-book">
-            <router-link to="/book/1">{{ rental.book_name }}</router-link>
+            <router-link :to="rental.book_url">{{ rental.book_name }}</router-link>
           </td>
           <td class="cell col-checkuout-date">{{ rental.checkout_date }}</td>
           <td class="cell col-return-due-date">
