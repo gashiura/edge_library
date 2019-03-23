@@ -31,6 +31,7 @@ export default {
     content: '>';
     padding: 0 3px;
     color: #555;
+    margin: 0px 5px;
   }
   &:last-child:after {
     content: '';
@@ -51,5 +52,7 @@ export default {
   content: '\f015';
   font-weight: 900;
   font-size: 1.1em;
+  color: #2e7fea;
+  margin-right: 2px;
 }
 </style>

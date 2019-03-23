@@ -2,7 +2,7 @@
   <div id="wrapper">
     <header-bar v-if="notRootPath"></header-bar>
     <nav-bar v-if="shownNavBar"></nav-bar>
-    <breadclumb-list></breadclumb-list>
+    <breadclumb-list v-if="notRootPath"></breadclumb-list>
     <search-bar v-if="notRootPath"></search-bar>
     <router-view></router-view>
     <footer-bar></footer-bar>

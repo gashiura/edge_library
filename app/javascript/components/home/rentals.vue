@@ -11,16 +11,18 @@
       </thead>
       <tbody id="table-body">
         <tr v-for="rental in rentals" :key="rental.id" class="table-row">
-          <td class="cell hd-id">{{ rental.eg_id }}</td>
-          <td class="cell hd-book">
+          <td class="cell col-id">{{ rental.eg_id }}</td>
+          <td class="cell col-book">
             <router-link to="/book/1">{{ rental.book_name }}</router-link>
           </td>
-          <td class="cell hd-checkuout-date">{{ rental.checkout_date }}</td>
-          <td class="cell hd-return-due-date" :class="isOverdue(rental.return_due_date),">
+          <td class="cell col-checkuout-date">{{ rental.checkout_date }}</td>
+          <td class="cell col-return-due-date" :class="isOverdue(rental.return_due_date),">
             <i v-if="isOverdue(rental.return_due_date)" class="fas fa-exclamation-circle"></i>
             {{ rental.return_due_date }}
           </td>
-          <td class="cell" col-return><button id="return-button">返却</button></td>
+          <td class="cell col-return">
+            <button id="return-button">返却</button>
+          </td>
         </tr>
       </tbody>
     </table>
@@ -36,23 +38,23 @@ export default {
       columns: [
         {
           name: 'ID',
-          styleName: 'hd-id'
+          styleName: 'col-id'
         },
         {
           name: '書籍',
-          styleName: 'hd-book'
+          styleName: 'col-book'
         },
         {
           name: '貸出日',
-          styleName: 'hd-checkuout-date'
+          styleName: 'col-checkuout-date'
         },
         {
           name: '返却予定日',
-          styleName: 'hd-return-due-date'
+          styleName: 'col-return-due-date'
         },
         {
           name: '',
-          styleName: 'hd-return'
+          styleName: 'col-return'
         }
       ],
       rentals: [],
@@ -130,21 +132,20 @@ export default {
     }
   }
 
-  .hd-id {
+  .col-id {
     width: 80px;
   }
-  .hd-book {
+  .col-book {
     width: 650px;
   }
-  .hd-checkuout-date, .hd-return-due-date,
   .col-checkuout-date, .col-return-due-date {
     width: 110px;
   }
-  .hd-checkuout-date, .hd-return-due-date {
-    text-align: center;
-  }
-  .hd-return {
+  .col-return {
     width: 100px;
+  }
+  .col-checkuout-date, .col-return-due-date, .col-return {
+    text-align: center;
   }
 
   #table {
@@ -191,8 +192,7 @@ export default {
             width: 80px;
             height: 30px;
             margin: 0px 20px;
-            color: black;
-            background: white;
+            padding: 5px;
           }
         }
         .cell + .cell {
