@@ -6,12 +6,16 @@ Vue.use(Vuex);
 export default new Vuex.Store({
   state: {
     title: 'EdgeLibrary',
+    user: {},
     breadclumbList: [],
     enableNavBar: false
   },
   getters: {
     title(state) {
       return state.title;
+    },
+    user(state) {
+      return state.user;
     },
     breadclumbList(state) {
       return state.breadclumbList;
@@ -21,6 +25,9 @@ export default new Vuex.Store({
     }
   },
   mutations: {
+    setUser(state, payload) {
+      state.user = payload;
+    },
     changeBreadclumbList(state, payload) {
       state.breadclumbList = payload;
     },
@@ -29,6 +36,9 @@ export default new Vuex.Store({
     }
   },
   actions: {
+    setUser({ commit }, payload) {
+      commit('setUser', payload);
+    },
     changeBreadclumbList({ commit }, payload) {
       commit('changeBreadclumbList', payload);
     },

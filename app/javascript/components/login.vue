@@ -10,13 +10,15 @@
         <div id="item-label">パスワード</div>
         <input type="text" class="login-input" v-model="password">
       </div>
-      <button id="login-button" @click="validate">ログイン</button>
+      <button id="login-button" @click="authenticate">ログイン</button>
     </div>
   </div>
 </template>
 
 <script>
+import { mapActions } from 'vuex';
 import http from '../api/axios';
+import JSSHA from 'jssha';
 
 export default {
   data() {
@@ -26,17 +28,39 @@ export default {
     };
   },
   methods: {
+    ...mapActions(['setUser']),
+    authenticate() {
+      if (this.validate()) {
+        const shaObj = new JSSHA('SHA-256', 'TEXT');
+        shaObj.update(this.password);
+        const encryptedPassword = shaObj.getHash('HEX');
+        http.post('/authenticate', { email: this.email, password: encryptedPassword }).then(response => {
+          let user = response.data.user;
+          if(user.result) {
+            this.setUser({
+              id: user.id,
+              name: user.name,
+              email: user.email,
+              authority: user.autyority
+            })
+            this.$router.push('/');
+          } else {
+            alert('Eメールまたはパスワードに誤りがあります。');
+            return;
+          }
+        });
+      }
+    },
     validate() {
       if(this.email === '') {
         alert('Eメールを入力して下さい。');
-        return;
+        return false;
       }
       if(this.password === '') {
         alert('パスワードを入力して下さい。');
-        return;
+        return false;
       }
-      http.post('/auth', { email: this.email, password: this.password }).then(response => (this.info = response));
-      this.$router.push('/home');
+      return true;
     }
   }
 };
