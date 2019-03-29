@@ -7,6 +7,7 @@ export default new Vuex.Store({
   state: {
     title: 'EdgeLibrary',
     user: {},
+    loggedIn: false,
     breadclumbList: [],
     enableNavBar: false
   },
@@ -16,6 +17,9 @@ export default new Vuex.Store({
     },
     user(state) {
       return state.user;
+    },
+    loggedIn(state) {
+      return state.loggedIn;
     },
     breadclumbList(state) {
       return state.breadclumbList;
@@ -28,6 +32,12 @@ export default new Vuex.Store({
     setUser(state, payload) {
       state.user = payload;
     },
+    logIn(state) {
+      state.loggedIn = true;
+    },
+    logOut(state) {
+      state.loggedIn = false;
+    },
     changeBreadclumbList(state, payload) {
       state.breadclumbList = payload;
     },
@@ -38,6 +48,12 @@ export default new Vuex.Store({
   actions: {
     setUser({ commit }, payload) {
       commit('setUser', payload);
+    },
+    logIn({ commit }) {
+      commit('logIn');
+    },
+    logOut({ commit }) {
+      commit('logOut');
     },
     changeBreadclumbList({ commit }, payload) {
       commit('changeBreadclumbList', payload);

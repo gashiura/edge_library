@@ -1,9 +1,9 @@
 <template>
   <div id="wrapper">
-    <header-bar v-if="notRootPath"></header-bar>
+    <header-bar v-if="notLoginPath"></header-bar>
     <nav-bar v-if="shownNavBar"></nav-bar>
-    <breadclumb-list v-if="notRootPath"></breadclumb-list>
-    <search-bar v-if="notRootPath"></search-bar>
+    <breadclumb-list v-if="notLoginPath"></breadclumb-list>
+    <search-bar v-if="notLoginPath"></search-bar>
     <router-view></router-view>
     <footer-bar></footer-bar>
   </div>
@@ -27,11 +27,11 @@ export default {
   },
   computed: {
     ...mapGetters(['enableNavBar']),
-    notRootPath() {
-      return this.$route.path !== '/';
+    notLoginPath() {
+      return this.$route.path !== '/login';
     },
     shownNavBar() {
-      return this.notRootPath && this.enableNavBar;
+      return this.notLoginPath && this.enableNavBar;
     }
   }
 };

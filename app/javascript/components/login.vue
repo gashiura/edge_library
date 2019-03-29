@@ -8,7 +8,7 @@
       </div>
       <div class="form-item">
         <div id="item-label">パスワード</div>
-        <input type="text" class="login-input" v-model="password">
+        <input type="password" class="login-input" v-model="password">
       </div>
       <button id="login-button" @click="authenticate">ログイン</button>
     </div>
@@ -28,7 +28,7 @@ export default {
     };
   },
   methods: {
-    ...mapActions(['setUser']),
+    ...mapActions(['setUser', 'logIn']),
     authenticate() {
       if (this.validate()) {
         const shaObj = new JSSHA('SHA-256', 'TEXT');
@@ -36,13 +36,14 @@ export default {
         const encryptedPassword = shaObj.getHash('HEX');
         http.post('/authenticate', { email: this.email, password: encryptedPassword }).then(response => {
           let user = response.data.user;
-          if(user.result) {
+          if(response.data.result) {
+            this.logIn();
             this.setUser({
               id: user.id,
               name: user.name,
               email: user.email,
-              authority: user.autyority
-            })
+              authority: user.authority
+            });
             this.$router.push('/');
           } else {
             alert('Eメールまたはパスワードに誤りがあります。');

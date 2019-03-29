@@ -1,5 +1,5 @@
 class LoginController < ApplicationController
-  protect_from_forgery except: authenticate
+  protect_from_forgery except: :authenticate
 
   def index
     render 'index'
@@ -7,11 +7,12 @@ class LoginController < ApplicationController
 
   def authenticate
     @user = User.find_by(email: params[:email])
-    @result = user && user.password === params['password']
+    @result = @user && @user.password === params[:password]
     if @result
       render 'authenticate', formats: 'json', handlers: 'jbuilder'
     else
-      render json: {}
+      render json: { result: false }
+    end
   end
 
 end
