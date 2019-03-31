@@ -8,7 +8,6 @@ export default new Vuex.Store({
     title: 'EdgeLibrary',
     user: {},
     loggedIn: false,
-    breadclumbList: [],
     enableNavBar: false
   },
   getters: {
@@ -20,9 +19,6 @@ export default new Vuex.Store({
     },
     loggedIn(state) {
       return state.loggedIn;
-    },
-    breadclumbList(state) {
-      return state.breadclumbList;
     },
     enableNavBar(state) {
       return state.enableNavBar;
@@ -38,9 +34,6 @@ export default new Vuex.Store({
     logOut(state) {
       state.loggedIn = false;
     },
-    changeBreadclumbList(state, payload) {
-      state.breadclumbList = payload;
-    },
     toggleNavBar(state) {
       state.enableNavBar = !state.enableNavBar;
     }
@@ -54,9 +47,6 @@ export default new Vuex.Store({
     },
     logOut({ commit }) {
       commit('logOut');
-    },
-    changeBreadclumbList({ commit }, payload) {
-      commit('changeBreadclumbList', payload);
     },
     toggleNavBar({ commit }) {
       commit('toggleNavBar');

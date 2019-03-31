@@ -11,10 +11,65 @@ Vue.use(VueRouter);
 const router = new VueRouter({
   mode: 'hash',
   routes: [
-    { path: '/login', component: Login },
-    { path: '/', component: Home, meta: { requiresAuth: true } },
-    { path: '/books', component: Books, meta: { requiresAuth: true } },
-    { path: '/book/:id', component: Book, meta: { requiresAuth: true } }
+    {
+      path: '/login',
+      name: 'login',
+      component: Login
+    },
+    {
+      path: '/',
+      name: 'home',
+      meta: {
+        requiresAuth: true,
+        breadclumbs: [
+          {
+            pageName: 'ホーム',
+            routeName: 'home'
+          }
+        ]
+      },
+      component: Home
+    },
+    {
+      path: '/books',
+      name: 'books',
+      component: Books,
+      meta: {
+        requiresAuth: true,
+        breadclumbs: [
+          {
+            pageName: 'ホーム',
+            routeName: 'home'
+          },
+          {
+            pageName: '書籍一覧',
+            routeName: 'books'
+          }
+        ]
+      }
+    },
+    {
+      path: '/book/:id',
+      name: 'book',
+      component: Book,
+      meta: {
+        requiresAuth: true,
+        breadclumbs: [
+          {
+            pageName: 'ホーム',
+            routeName: 'home'
+          },
+          {
+            pageName: '書籍一覧',
+            routeName: 'books'
+          },
+          {
+            pageName: '書籍詳細',
+            routeName: 'book'
+          },
+        ]
+      }
+    }
   ]
 });
 

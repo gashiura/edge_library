@@ -14,17 +14,6 @@ export default {
   components: {
     Rentals,
     Favorites
-  },
-  created: function() {
-    this.changeBreadclumbList([
-      {
-        pagename: 'ホーム',
-        url: '/home'
-      }
-    ]);
-  },
-  methods: {
-    ...mapActions(['changeBreadclumbList'])
   }
 };
 </script>

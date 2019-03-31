@@ -5,7 +5,7 @@
     <div v-for="book in books" :key="book.id" class="book-container">
       <img :src="book.image_url" class="book-image">
       <div class="book-detail">
-        <router-link :to="book.url" class="book-title">{{ book.name }}</router-link>
+        <router-link :to="{ name: 'book', params: { id: book.id }}" class="book-title">{{ book.name }}</router-link>
         <div class="book-category">
           <label >カテゴリ：</label>
           <label>{{ book.category }}</label>
@@ -29,30 +29,18 @@
 </template>
 
 <script>
-import { mapActions } from 'vuex';
 import http from '../../api/axios';
 
 export default {
   data() {
     return {
-      books: [],
+      books: []
     };
   },
   created: function() {
-    this.changeBreadclumbList([
-      {
-        pagename: 'ホーム',
-        url: '/home'
-      },
-      {
-        pagename: '書籍一覧',
-        url: '/books'
-      }
-    ]);
     this.getBooks();
   },
   methods: {
-    ...mapActions(['changeBreadclumbList']),
     isRental: status => {
       return status === '貸出中';
     },

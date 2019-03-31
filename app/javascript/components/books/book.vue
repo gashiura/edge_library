@@ -29,7 +29,6 @@
 </template>
 
 <script>
-import { mapActions } from 'vuex';
 import Reviews from './reviews/reviews.vue';
 import Post from './reviews/post.vue';
 import http from '../../api/axios';
@@ -45,20 +44,6 @@ export default {
     };
   },
   created: function() {
-    this.changeBreadclumbList([
-      {
-        pagename: 'ホーム',
-        url: '/home'
-      },
-      {
-        pagename: '書籍一覧',
-        url: '/books'
-      },
-      {
-        pagename: '書籍詳細',
-        url: `/book/${this.$route.params.id}`
-      },
-    ]);
     this.getBook(this.$route.params.id);
   },
   computed: {
@@ -67,7 +52,6 @@ export default {
     }
   },
   methods: {
-    ...mapActions(['changeBreadclumbList']),
     getBook: function(bookId) {
       http.get(`/api/books/show/${bookId}`).then(response => (this.book = response.data.book));
     }

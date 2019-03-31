@@ -1,19 +1,27 @@
 <template>
   <ul class="breadcrumb">
-    <li v-for="breadclumb in breadclumbList" :key="breadclumb.pagename" itemscope="itemscope" itemtype="http://data-vocabulary.org/Breadcrumb">
-      <router-link :to="breadclumb.url" itemprop="url">
-        <span itemprop="title">{{ breadclumb.pagename }}</span>
+    <li v-for="breadclumb in breadclumbs" :key="breadclumb.pagename" itemscope="itemscope" itemtype="http://data-vocabulary.org/Breadcrumb">
+      <template v-if="disableLink(breadclumb.name)">
+        {{ breadclumb.pageName }}
+      </template>
+      <router-link v-else :to="{ name: breadclumb.routeName }" itemprop="url">
+        <span itemprop="title">{{ breadclumb.pageName }}</span>
       </router-link>
     </li>
   </ul>
 </template>
 
 <script>
-import { mapGetters } from 'vuex';
-
 export default {
-  computed: {
-    ...mapGetters(['breadclumbList'])
+  data() {
+    return {
+      breadclumbs: this.$route.meta.breadclumbs
+    };
+  },
+  methods: {
+    disableLink: function(pageName) {
+      return this.$route.name === pageName;
+    }
   }
 };
 </script>
