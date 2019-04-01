@@ -28,7 +28,7 @@ export default {
     };
   },
   methods: {
-    ...mapActions(['setUser', 'logIn']),
+    ...mapActions(['setUser', 'login']),
     authenticate() {
       if (this.validate()) {
         const shaObj = new JSSHA('SHA-256', 'TEXT');
@@ -37,7 +37,7 @@ export default {
         http.post('/authenticate', { email: this.email, password: encryptedPassword }).then(response => {
           let user = response.data.user;
           if(response.data.result) {
-            this.logIn();
+            this.login();
             this.setUser({
               id: user.id,
               name: user.name,

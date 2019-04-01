@@ -28,11 +28,12 @@ export default new Vuex.Store({
     setUser(state, payload) {
       state.user = payload;
     },
-    logIn(state) {
+    login(state) {
       state.loggedIn = true;
     },
-    logOut(state) {
+    logout(state) {
       state.loggedIn = false;
+      state.user = {};
     },
     toggleNavBar(state) {
       state.enableNavBar = !state.enableNavBar;
@@ -42,11 +43,11 @@ export default new Vuex.Store({
     setUser({ commit }, payload) {
       commit('setUser', payload);
     },
-    logIn({ commit }) {
-      commit('logIn');
+    login({ commit }) {
+      commit('login');
     },
-    logOut({ commit }) {
-      commit('logOut');
+    logout({ commit }) {
+      commit('logout');
     },
     toggleNavBar({ commit }) {
       commit('toggleNavBar');

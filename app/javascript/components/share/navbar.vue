@@ -9,7 +9,7 @@
         <li><router-link to="/">ホーム</router-link></li>
         <li><router-link to="/books">書籍一覧</router-link></li>
         <li><router-link to="/home">アカウント設定</router-link></li>
-        <li><router-link to="/home">ログアウト</router-link></li>
+        <li @click="checkLogout">ログアウト</li>
       </ul>
     </nav>
     <div id="gnavi-out"></div>
@@ -21,7 +21,13 @@ import { mapActions } from 'vuex';
 
 export default {
   methods: {
-    ...mapActions(['toggleNavBar'])
+    ...mapActions(['toggleNavBar', 'logout']),
+    checkLogout: function() {
+      if(confirm('ログアウトしますか？')) {
+        this.logout();
+        this.$router.push({ name: 'login' });
+      }
+    }
   }
 };
 </script>
