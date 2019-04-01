@@ -31,7 +31,7 @@ const router = new VueRouter({
       component: Home
     },
     {
-      path: '/books',
+      path: '/books/:searchString',
       name: 'books',
       component: Books,
       meta: {

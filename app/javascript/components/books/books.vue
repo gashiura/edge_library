@@ -1,29 +1,35 @@
 <template>
   <div id="books-container">
     <div id="books-subject">書籍一覧</div>
-    <div id="books-count">現在1000件中  1〜20件目を表示しています。</div>
-    <div v-for="book in books" :key="book.id" class="book-container">
-      <img :src="book.image_url" class="book-image">
-      <div class="book-detail">
-        <router-link :to="{ name: 'book', params: { id: book.id }}" class="book-title">{{ book.name }}</router-link>
-        <div class="book-category">
-          <label >カテゴリ：</label>
-          <label>{{ book.category }}</label>
+    <template v-if="existsBook">
+      <div class="result-label">現在1000件中  1〜20件目を表示しています。</div>
+      <div v-for="book in books" :key="book.id" class="book-container">
+        <img :src="book.image_url" class="book-image">
+        <div class="book-detail">
+          <router-link :to="{ name: 'book', params: { id: book.id }}" class="book-title">{{ book.name }}</router-link>
+          <div class="book-category">
+            <label >カテゴリ：</label>
+            <label>{{ book.category }}</label>
+          </div>
+          <div class="book-author">
+            <label>著書：</label>
+            <label>{{ book.author }}</label>
+          </div>
+          <div class="book-publisher">
+            <label>出版社：</label>
+            <label>{{ book.publisher }}</label>
+          </div>
+          <div v-for="tag in book.tags['tags']" :key="tag" class="book-tag">{{ tag }}</div>
         </div>
-        <div class="book-author">
-          <label>著書：</label>
-          <label>{{ book.author }}</label>
+        <div class="book-status">
+          <div class="status-ok" :class="{'status-rental': isRental(book.status)}">{{ book.status }}</div>
         </div>
-        <div class="book-publisher">
-          <label>出版社：</label>
-          <label>{{ book.publisher }}</label>
-        </div>
-        <div v-for="tag in book.tags['tags']" :key="tag" class="book-tag">{{ tag }}</div>
+        <hr>
       </div>
-      <div class="book-status">
-        <div class="status-ok" :class="{'status-rental': isRental(book.status)}">{{ book.status }}</div>
-      </div>
-      <hr>
+    </template>
+    <div v-else class="result-label">
+      <label class="label-bold">{{ searchString }}</label>
+      <label>に一致する検索結果はありませんでした。</label>
     </div>
   </div>
 </template>
@@ -40,12 +46,22 @@ export default {
   created: function() {
     this.getBooks();
   },
+  computed: {
+    searchString: function() {
+      return this.$route.params.searchString;
+    },
+    existsBook: function() {
+      return this.books.length > 0;
+    }
+  },
   methods: {
-    isRental: status => {
+    isRental: function(status) {
       return status === '貸出中';
     },
     getBooks: function() {
-      http.get('/api/books').then(response => (this.books = response.data.books));
+      http.get(`/api/books/${this.searchString}`).then(
+        response => (this.books = response.data.books)
+      );
     }
   }
 };
@@ -69,8 +85,8 @@ export default {
     }
   }
 
-  #books-count {
-    margin: 10px;
+  .result-label {
+    margin: 20px;
   }
 
   .book-container {

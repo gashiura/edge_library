@@ -1,6 +1,6 @@
 <template>
   <header>
-    <router-link to="/home" id="title">{{ title }}</router-link>
+    <router-link to="/" id="title">{{ title }}</router-link>
     <div id="btn-gnavi" @click="toggleNavBar">
       <span></span>
       <span></span>

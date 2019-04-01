@@ -1,7 +1,12 @@
 class Api::BooksController < ApplicationController
 
   def index
-    @books = BookDecorator.decorate_collection(Book.all)
+    search_string = params[:search_string]
+    if search_string.blank?
+      @books = BookDecorator.decorate_collection(Book.all)
+    else
+      @books = BookDecorator.decorate_collection(Book.where("name LIKE ?", "%#{params[:search_string]}%"))
+    end
     render 'index', formats: 'json', handlers: 'jbuilder'
   end
 

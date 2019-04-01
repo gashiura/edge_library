@@ -6,7 +6,7 @@
         <span></span>
       </div>
       <ul id="menu">
-        <li><router-link to="/home">ホーム</router-link></li>
+        <li><router-link to="/">ホーム</router-link></li>
         <li><router-link to="/books">書籍一覧</router-link></li>
         <li><router-link to="/home">アカウント設定</router-link></li>
         <li><router-link to="/home">ログアウト</router-link></li>

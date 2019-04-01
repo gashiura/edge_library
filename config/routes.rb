@@ -4,7 +4,7 @@ Rails.application.routes.draw do
   post 'authenticate' => 'login#authenticate'
 
   namespace :api do
-    get 'books' => 'books#index'
+    get 'books/:search_string' => 'books#index'
     get 'books/show/:id' => 'books#show'
 
     get 'rentals/:user_id' => 'rentals#index'

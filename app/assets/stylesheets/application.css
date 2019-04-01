@@ -50,3 +50,7 @@ button:hover {
   color: black;
   background: #ffffb7;
 }
+
+.label-bold {
+  font-weight: bold;
+}
