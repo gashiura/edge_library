@@ -1,7 +1,7 @@
 <template>
   <div id="login-container">
     <label id="title">EdgeLibrary</label>
-    <div id="input-container">
+    <div id="input-container" @keyup.enter="authenticate">
       <div class="form-item">
         <div id="item-label">Eメール</div>
         <input type="text" class="login-input" v-model="email">
