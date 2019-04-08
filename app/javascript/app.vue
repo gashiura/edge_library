@@ -1,5 +1,5 @@
 <template>
-  <div id="wrapper">
+  <div class="wrapper">
     <header-bar v-if="notLoginPath"></header-bar>
     <nav-bar v-if="shownNavBar"></nav-bar>
     <breadclumb-list v-if="notLoginPath"></breadclumb-list>

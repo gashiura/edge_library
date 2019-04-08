@@ -1,19 +1,19 @@
 <template>
-  <footer id="footer-container">
+  <footer class="footer-container">
     <hr>
-    <div id="footer-text">Copyright © 2019 MebersEdge .inc All Rights Reserved.</div>
+    <div class="footer-text">Copyright © 2019 MebersEdge .inc All Rights Reserved.</div>
   </footer>
 </template>
 
 <style lang="scss" scoped>
-#footer-container {
-  bottom: 0px;
-  margin-top: 20px;
+.footer-container {
+   height: 50px;
+   margin-top: auto;
 
-  #footer-text {
+  .footer-text {
     text-align: center;
     font-size: 12px;
-    margin: 10px 0px;
+    margin: 15px 0px;
   }
 }
 </style>

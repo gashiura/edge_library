@@ -16,13 +16,21 @@
 
 @import url("reset.css");
 
+html, body {
+  height: 100%;
+  margin: 0px;
+}
+
 body {
   font: 1em "メイリオ", "Meiryo", "ヒラギノ角ゴ Pro W3", "Hiragino Kaku Gothic Pro", "ＭＳ Ｐゴシック", sans-serif;
 }
 
-#wrapper {
+.wrapper {
+  display: flex;
+  flex-direction: column;
   width: 1280px;
-  margin: 0 auto;
+  min-height: 100%;
+  margin: 0px auto;
 }
 
 input {
