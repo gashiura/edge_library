@@ -46,9 +46,14 @@ export default {
   created: function() {
     this.getBooks();
   },
+  watch:{
+    '$route.query.searchString' (to, from) {
+      this.getBooks();
+    }
+  },
   computed: {
     searchString: function() {
-      return this.$route.params.searchString;
+      return this.$route.query.searchString;
     },
     existsBook: function() {
       return this.books.length > 0;
@@ -59,7 +64,9 @@ export default {
       return status === '貸出中';
     },
     getBooks: function() {
-      http.get(`/api/books/${this.searchString}`).then(
+      http.get('/api/books', { params: {
+        search_string: this.searchString
+      }}).then(
         response => (this.books = response.data.books)
       );
     }

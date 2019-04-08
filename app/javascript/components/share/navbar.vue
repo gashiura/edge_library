@@ -9,7 +9,7 @@
         <li><router-link to="/">ホーム</router-link></li>
         <li><router-link to="/books">書籍一覧</router-link></li>
         <li><router-link to="/home">アカウント設定</router-link></li>
-        <li @click="checkLogout">ログアウト</li>
+        <li @click="checkLogout"><a>ログアウト</a></li>
       </ul>
     </nav>
     <div id="gnavi-out"></div>
@@ -87,7 +87,10 @@ export default {
           color: white;
           text-decoration: none;
           &:visited { color: white; }
-          &:hover { color: gold; }
+          &:hover {
+            color: gold;
+            cursor: pointer;
+          }
         }
       }
     }
