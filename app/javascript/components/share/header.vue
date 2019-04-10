@@ -25,7 +25,7 @@ export default {
 
 <style lang="scss">
 header {
-   a {
+  a {
     text-decoration: none;
     &:visited { color: black; }
   }

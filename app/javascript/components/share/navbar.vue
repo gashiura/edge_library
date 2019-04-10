@@ -1,5 +1,5 @@
 <template>
-  <div id="gnavi-wrapper" @click="toggleNavBar">
+  <div id="gnavi-wrapper">
     <nav id="gnavi">
       <div id="del-navi" @click="toggleNavBar">
         <span></span>
@@ -12,7 +12,7 @@
         <li @click="checkLogout"><a>ログアウト</a></li>
       </ul>
     </nav>
-    <div id="gnavi-out"></div>
+    <div id="gnavi-out" @click="toggleNavBar"></div>
   </div>
 </template>
 
@@ -35,7 +35,7 @@ export default {
 <style lang="scss" scoped>
 #gnavi-wrapper {
   #gnavi-out {
-    position: absolute;
+    position: fixed;
     top: 0px;
     left: 0px;
     width: 100%;
@@ -44,7 +44,7 @@ export default {
   }
 
   #gnavi {
-    position: absolute;
+    position: fixed;
     top: 0px;
     right: 0px;
     width: 300px;
