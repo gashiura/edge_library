@@ -2,18 +2,20 @@
   <div id="content">
     <rentals/>
     <favorites/>
+    <return-modal/>
   </div>
 </template>
 
 <script>
-import { mapActions } from 'vuex';
 import Rentals from './rentals.vue';
 import Favorites from './favorites.vue';
+import ReturnModal from './return_modal.vue';
 
 export default {
   components: {
     Rentals,
-    Favorites
+    Favorites,
+    ReturnModal
   }
 };
 </script>

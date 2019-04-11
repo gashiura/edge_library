@@ -20,7 +20,7 @@
             {{ rental.return_due_date }}
           </td>
           <td class="cell col-return">
-            <button id="return-button">返却</button>
+            <button @click="openModal" id="return-modal-button">返却</button>
           </td>
         </tr>
       </tbody>
@@ -30,6 +30,7 @@
 </template>
 
 <script>
+import { mapActions } from 'vuex';
 import http from '../../api/axios';
 
 export default {
@@ -76,8 +77,12 @@ export default {
     }
   },
   methods: {
+    ...mapActions('home', ['toggleModal']),
     getRentals: function(userId) {
       http.get(`/api/rentals/${userId}`).then(response => (this.rentals = response.data.rentals));
+    },
+    openModal: function() {
+      this.toggleModal(true);
     }
   }
 };
@@ -189,7 +194,7 @@ export default {
           &:last-child {
             padding: 0px;
           }
-          #return-button {
+          #return-modal-button {
             width: 80px;
             height: 30px;
             margin: 0px 20px;
