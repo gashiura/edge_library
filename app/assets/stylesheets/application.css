@@ -33,7 +33,7 @@ body {
   margin: 0px auto;
 }
 
-input {
+.basic-input {
   font-size: 14px;
   width: 300px;
   height: 25px;
@@ -43,7 +43,7 @@ input {
   outline: 0;
 }
 
-button {
+.basic-button {
   font-size: 14px;
   width: 200px;
   height: 40px;
@@ -54,7 +54,23 @@ button {
   outline: 0;
 }
 
-button:hover {
+.basic-button--short-width {
+   width: 100px;
+}
+
+.small-button {
+  font-size: 14px;
+  width: 80px;
+  height: 30px;
+  padding: 5px;
+  border-radius: 10px;
+  color: white;
+  background: gray;
+  outline: 0;
+}
+
+.basic-button:hover,
+.small-button:hover {
   color: black;
   background: #ffffb7;
 }

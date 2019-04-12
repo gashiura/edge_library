@@ -3,7 +3,7 @@
   <div v-if="showModal" class="modal-mask">
     <div class="modal-wrapper">
       <div class="modal-container">
-        <button class="modal-default-button" @click="close">Close</button>
+        <button class="small-button" @click="close">Close</button>
         <div class="modal-header">
           書籍を返却する
         </div>
@@ -11,7 +11,7 @@
           <div>書籍名：　試して分かる！LinuxOSの仕組み</div>
           <label>確認者を入力して下さい。</label>
           <input>
-          <button class="return-button">返却する</button>
+          <button class="basic-button">返却する</button>
         </div>
         <div class="modal-footer">
         </div>
@@ -75,10 +75,6 @@ export default {
 
   .modal-content {
     margin: 30px;
-  }
-
-  .return-button {
-    text-align: center;
   }
 }
 

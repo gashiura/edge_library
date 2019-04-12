@@ -4,13 +4,13 @@
     <div id="input-container" @keyup.enter="authenticate">
       <div class="form-item">
         <div id="item-label">Eメール</div>
-        <input type="text" class="login-input" v-model="email">
+        <input type="text" class="basic-input" v-model="email">
       </div>
       <div class="form-item">
         <div id="item-label">パスワード</div>
-        <input type="password" class="login-input" v-model="password">
+        <input type="password" class="basic-input" v-model="password">
       </div>
-      <button id="login-button" @click="authenticate">ログイン</button>
+      <button class="basic-button" id="login-button" @click="authenticate">ログイン</button>
     </div>
   </div>
 </template>
@@ -87,10 +87,6 @@ export default {
         display: inline-block;
         width: 100px;
         text-align: center;
-      }
-
-      #login-input {
-        display: block;
       }
     }
 

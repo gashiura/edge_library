@@ -1,7 +1,7 @@
 <template>
-  <div id="search-area">
-    <input id="search-input" v-model="searchString" placeholder="検索したい書籍名を入力して下さい。">
-    <button id="search-button" @click="search">検索</button>
+  <div class="search-container">
+    <input class="basic-input search-input--width" v-model="searchString" placeholder="検索したい書籍名を入力して下さい。">
+    <button class="basic-button basic-button--short-width" @click="search">検索</button>
   </div>
 </template>
 
@@ -28,16 +28,12 @@ export default {
 </script>
 
 <style lang="scss" scoped>
-#search-area {
+.search-container {
   text-align: center;
   margin-top: 10px;
 
-  #search-input {
+  .search-input--width {
     width: 300px;
-  }
-
-  #search-button {
-    width: 100px;
   }
 }
 </style>

@@ -15,7 +15,4 @@ class RentalDecorator < Draper::Decorator
     return Date.today > object.return_due_date
   end
 
-  def book_url
-    return "/book/#{object.book_id}"
-  end
 end

@@ -5,14 +5,18 @@
     <table v-if="existsRetalBook" id="table">
       <thead id="table-header">
         <tr class="table-row">
-          <th class="col-header" :class="column.styleName" v-for="column in columns" :key="column.name">{{ column.name }}</th>
+          <th class="col-header" :class="column.styleName" v-for="column in columns" :key="column.name">
+            {{ column.name }}
+          </th>
         </tr>
       </thead>
       <tbody id="table-body">
         <tr v-for="rental in rentals" :key="rental.id" class="table-row">
           <td class="cell col-id">{{ rental.eg_id }}</td>
           <td class="cell col-book">
-            <router-link :to="rental.book_url">{{ rental.book_name }}</router-link>
+            <router-link :to="{ name: 'book', params: { id: rental.book_id }}">
+              {{ rental.book_name }}
+            </router-link>
           </td>
           <td class="cell col-checkuout-date">{{ rental.checkout_date }}</td>
           <td class="cell col-return-due-date">
@@ -20,7 +24,7 @@
             {{ rental.return_due_date }}
           </td>
           <td class="cell col-return">
-            <button @click="openModal" id="return-modal-button">返却</button>
+            <button @click="openModal" class="small-button modal-button-margin">返却</button>
           </td>
         </tr>
       </tbody>
@@ -192,13 +196,10 @@ export default {
           padding: 10px;
           border-bottom: 1px gray solid;
           &:last-child {
-            padding: 0px;
+            padding: 5px 0px;
           }
-          #return-modal-button {
-            width: 80px;
-            height: 30px;
+          .modal-button-margin {
             margin: 0px 20px;
-            padding: 5px;
           }
         }
         .cell + .cell {

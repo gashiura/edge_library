@@ -9,7 +9,7 @@
       <div id="review-container">
         <h3 class="middle-title">レビュー</h3>
         <textarea id="post-review" v-model="content"></textarea>
-        <button id="post-button">投稿する</button>
+        <button  class="basic-button" id="post-button">投稿する</button>
       </div>
     </div>
   </div>

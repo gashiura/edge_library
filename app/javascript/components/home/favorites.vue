@@ -2,12 +2,12 @@
   <div id="favorite-container">
     <label id="favorite-title">最近のお気に入り</label>
     <div id="favorite-thumbnail">
-      <button id="back-button">◀︎</button>
+      <button class="move-button move-button--back">◀︎</button>
       <div v-for="favorite in favorites" :key="favorite.id" class="image-container">
         <img :src="favorite.image_url" class="favorite-image">
         <router-link to="/book/1" class="favorite-link">{{ favorite.book_name }}</router-link>
       </div>
-      <button id="next-button">▶︎</button>
+      <button class="move-button move-button--next">▶︎</button>
     </div>
   </div>
 </template>
@@ -56,7 +56,7 @@ export default {
   #favorite-thumbnail {
     margin-top: 20px;
     width: auto;
-    height: auto;
+    height: 300px;
     background: #f5f5f5;
     border-radius: 5px;
 
@@ -78,14 +78,22 @@ export default {
         max-width: 150px;
       }
     }
-    #back-button { float: left; }
-    #next-button { float:right; }
-    #back-button, #next-button{
+    .move-button {
       display: inline-block;
       vertical-align: middle;
       width: 30px;
       height: 300px;
-      margin: 0 auto;
+      margin: 0px auto;
+      padding: 5px;
+      border-radius: 5px;
+      font-size: 14px;
+      color: black;
+      background: white;
+      outline: 0;
+
+      &--back { float: left; }
+      &--next { float: right; }
+      &:hover { background: #ffffb7 }
     }
   }
 }
