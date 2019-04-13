@@ -3,17 +3,20 @@
   <div v-if="showModal" class="modal-mask">
     <div class="modal-wrapper">
       <div class="modal-container">
-        <button class="small-button" @click="close">Close</button>
+        <div class="modal-close">
+          <button class="small-button button-right" @click="close">Close</button>
+        </div>
         <div class="modal-header">
           書籍を返却する
         </div>
         <div class="modal-content">
-          <div>書籍名：　試して分かる！LinuxOSの仕組み</div>
-          <label>確認者を入力して下さい。</label>
-          <input>
-          <button class="basic-button">返却する</button>
+          <div>書籍名： {{ rentalBook.book_name }}</div>
+          <div>返却予定日： {{ rentalBook.return_due_date }}</div>
+          <label class="approver-label">確認者を入力して下さい。</label>
+          <input class="basic-input" v-model="returnApprover">
         </div>
         <div class="modal-footer">
+          <button @click="register" class="basic-button" :class="{ 'disable-button': disableButton }">返却する</button>
         </div>
       </div>
     </div>
@@ -25,13 +28,28 @@
 import { mapGetters, mapActions } from 'vuex';
 
 export default {
+  data() {
+    return {
+      returnApprover: ''
+    }
+  },
   computed: {
-    ...mapGetters('home', ['showModal'])
+    ...mapGetters('home', ['showModal', 'rentalBook']),
+    disableButton: function() {
+      return this.returnApprover === '';
+    }
   },
   methods: {
     ...mapActions('home', ['toggleModal']),
     close: function() {
+      this.returnApprover = '';
       this.toggleModal(false);
+    },
+    register: function() {
+      if(confirm('書籍を返却してよろしいですか？')) {
+        this.close();
+        return;
+      }
     }
   }
 }
@@ -68,6 +86,14 @@ export default {
   transition: all .3s ease;
   font-family: Helvetica, Arial, sans-serif;
 
+  .modal-close {
+    height: 30px;
+
+    .button-right {
+      float: right;
+    }
+  }
+
   .modal-header {
     font-size: 20px;
     font-weight: bold;
@@ -75,6 +101,15 @@ export default {
 
   .modal-content {
     margin: 30px;
+
+    .approver-label {
+      color: red;
+    }
+  }
+
+  .modal-footer {
+    margin-top: 20px;
+    text-align: center;
   }
 }
 

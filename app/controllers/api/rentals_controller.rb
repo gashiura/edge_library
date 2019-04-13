@@ -7,4 +7,9 @@ class Api::RentalsController < ApplicationController
     render 'index', formats: 'json', handlers: 'jbuilder'
   end
 
+  def show
+    @rental = Rental.find(params[:id]).decorate
+    render 'show', formats: 'json', handlers: 'jbuilder'
+  end
+
 end

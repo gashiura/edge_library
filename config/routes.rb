@@ -8,6 +8,7 @@ Rails.application.routes.draw do
     get 'books/show/:id' => 'books#show'
 
     get 'rentals/:user_id' => 'rentals#index'
+    get 'rentals/show/:id' => 'rentals#show'
 
     get 'reviews/:book_id' => 'reviews#index'
 

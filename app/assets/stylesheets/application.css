@@ -69,6 +69,11 @@ body {
   outline: 0;
 }
 
+.disable-button {
+  pointer-events: none;
+  color: black;
+}
+
 .basic-button:hover,
 .small-button:hover {
   color: black;

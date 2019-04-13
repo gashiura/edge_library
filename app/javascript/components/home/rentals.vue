@@ -24,7 +24,7 @@
             {{ rental.return_due_date }}
           </td>
           <td class="cell col-return">
-            <button @click="openModal" class="small-button modal-button-margin">返却</button>
+            <button @click="openModal(rental.id)" class="small-button modal-button-margin">返却</button>
           </td>
         </tr>
       </tbody>
@@ -34,7 +34,7 @@
 </template>
 
 <script>
-import { mapActions } from 'vuex';
+import { mapGetters, mapActions } from 'vuex';
 import http from '../../api/axios';
 
 export default {
@@ -81,12 +81,13 @@ export default {
     }
   },
   methods: {
-    ...mapActions('home', ['toggleModal']),
+    ...mapActions('home', ['toggleModal', 'getRentalBook']),
     getRentals: function(userId) {
       http.get(`/api/rentals/${userId}`).then(response => (this.rentals = response.data.rentals));
     },
-    openModal: function() {
+    openModal: function(id) {
       this.toggleModal(true);
+      this.getRentalBook(id);
     }
   }
 };
