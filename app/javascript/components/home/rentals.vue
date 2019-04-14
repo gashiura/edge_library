@@ -61,17 +61,17 @@ export default {
           name: '',
           styleName: 'col-return'
         }
-      ],
-      rentals: [],
-      userId: 1
+      ]
     };
   },
   created: function() {
-    this.getRentals(this.userId);
+    this.getRentals(this.user.id);
   },
   computed: {
+    ...mapGetters(['user']),
+    ...mapGetters('home', ['rentals']),
     hasOverdueBook: function() {
-      var overdueBooks = this.rentals.map(rental => {
+      const overdueBooks = this.rentals.map(rental => {
         return rental.overdue;
       });
       return overdueBooks.length > 0;
@@ -81,10 +81,7 @@ export default {
     }
   },
   methods: {
-    ...mapActions('home', ['toggleModal', 'getRentalBook']),
-    getRentals: function(userId) {
-      http.get(`/api/rentals/${userId}`).then(response => (this.rentals = response.data.rentals));
-    },
+    ...mapActions('home', ['toggleModal', 'getRentals', 'getRentalBook']),
     openModal: function(id) {
       this.toggleModal(true);
       this.getRentalBook(id);

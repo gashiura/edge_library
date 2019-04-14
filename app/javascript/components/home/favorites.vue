@@ -88,7 +88,7 @@ export default {
       border-radius: 5px;
       font-size: 14px;
       color: black;
-      background: white;
+      background: lightgray;
       outline: 0;
 
       &--back { float: left; }

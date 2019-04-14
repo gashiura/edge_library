@@ -9,6 +9,7 @@ Rails.application.routes.draw do
 
     get 'rentals/:user_id' => 'rentals#index'
     get 'rentals/show/:id' => 'rentals#show'
+    put 'rentals/return/:id' => 'rentals#return_book'
 
     get 'reviews/:book_id' => 'reviews#index'
 
