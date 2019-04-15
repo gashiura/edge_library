@@ -13,7 +13,7 @@
           </div>
         </div>
         <div v-if="isRental" id="rental-message">この書籍はレンタル中です</div>
-        <button v-else id="rental-button">レンタルする</button>
+        <button v-else class="basic-button button-right">レンタルする</button>
       </div>
     </div>
     <hr>
@@ -118,9 +118,9 @@ export default {
         color: red;
       }
 
-      #rental-button {
+      .button-right {
         float: right;
-        display:block;
+        display: block;
       }
     }
   }
