@@ -6,10 +6,10 @@
         <span></span>
       </div>
       <ul id="menu">
-        <li><router-link to="/">ホーム</router-link></li>
-        <li><router-link to="/books">書籍一覧</router-link></li>
-        <li><router-link to="/home">アカウント設定</router-link></li>
-        <li @click="checkLogout"><a>ログアウト</a></li>
+        <li><router-link @click.native="toggleNavBar" to="/">ホーム</router-link></li>
+        <li><router-link @click.native="toggleNavBar" to="/books">書籍一覧</router-link></li>
+        <li><router-link  @click.native="toggleNavBar" to="/home">アカウント設定</router-link></li>
+        <li><a @click="checkLogout">ログアウト</a></li>
       </ul>
     </nav>
     <div id="gnavi-out" @click="toggleNavBar"></div>
@@ -24,6 +24,7 @@ export default {
     ...mapActions(['toggleNavBar', 'logout']),
     checkLogout: function() {
       if(confirm('ログアウトしますか？')) {
+        this.toggleNavBar();
         this.logout();
         this.$router.push({ name: 'login' });
       }
