@@ -106,8 +106,8 @@ export default {
 
       .book-tag {
         display: inline-block;
-        width: 100px;
         margin: 20px 10px;
+        padding: 0px 15px;
         background: #add8e6;
         border-radius: 10px;
         text-align: center;
