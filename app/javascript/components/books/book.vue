@@ -19,7 +19,7 @@
     <hr>
     <div id="description-container">
       <h2 class="title">概要</h2>
-      <div id="description">{{ book.description }}</div>
+      <div v-html="book.description" id="description"></div>
     </div>
     <hr>
     <reviews :reviews="book.reviews"></reviews>

@@ -8,7 +8,7 @@
           <div class="review-user">投稿者：{{ review.user_name }}</div>
           <div class="reviwe-date">投稿日：{{ review.created_at }}</div>
         </div>
-        <div class="review">{{ review.content }}</div>
+        <div v-html="review.content" class="review"></div>
       </div>
     </template>
     <div v-else class="reviews">

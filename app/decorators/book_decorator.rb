@@ -2,6 +2,10 @@ class BookDecorator < Draper::Decorator
   delegate_all
   decorates_associations :reviews
 
+  def description
+    return object.description.gsub("\n", '<br>')
+  end
+
   def status
     return '貸出可' if object.rentals.blank?
 
