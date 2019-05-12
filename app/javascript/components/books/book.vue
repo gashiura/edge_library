@@ -13,7 +13,7 @@
           </div>
         </div>
         <div v-if="isRental" id="rental-message">この書籍はレンタル中です</div>
-        <button v-else class="basic-button button-right">レンタルする</button>
+        <button v-else @click="openModal" class="basic-button button-right">レンタルする</button>
       </div>
     </div>
     <hr>
@@ -24,36 +24,36 @@
     <hr>
     <reviews :reviews="book.reviews"></reviews>
     <hr>
-    <post></post>
+    <post/>
+    <rental-modal/>
   </div>
 </template>
 
 <script>
 import Reviews from './reviews/reviews.vue';
 import Post from './reviews/post.vue';
-import http from '../../api/axios';
+import RentalModal from './rental_modal';
+import { mapGetters, mapActions } from 'vuex';
 
 export default {
   components: {
     Reviews,
-    Post
-  },
-  data() {
-    return {
-      book: {}
-    };
+    Post,
+    RentalModal
   },
   created: function() {
     this.getBook(this.$route.params.id);
   },
   computed: {
+    ...mapGetters('book', ['book']),
     isRental: function() {
       return this.book.status === '貸出中';
     }
   },
   methods: {
-    getBook: function(bookId) {
-      http.get(`/api/books/show/${bookId}`).then(response => (this.book = response.data.book));
+    ...mapActions('book', ['getBook', 'toggleModal']),
+    openModal: function() {
+      this.toggleModal(true);
     }
   }
 };
@@ -69,7 +69,7 @@ export default {
   }
 
   #book-detail-container {
-    margin: 10px;
+    margin: 30px 10px;
 
     .book-image {
       max-width: 200px;

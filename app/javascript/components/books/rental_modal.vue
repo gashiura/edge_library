@@ -7,29 +7,23 @@
           <button class="small-button button-right" @click="close">Close</button>
         </div>
         <div class="modal-header">
-          書籍を返却する
+          書籍をレンタルする
         </div>
         <div class="modal-content">
           <div class="modal-item">
             <label class="item-label">書籍名</label>
-            <div class="item-value">{{ rentalBook.book_name }}</div>
+            <div class="item-value">{{ book.name }}</div>
           </div>
           <div class="modal-item">
             <label class="item-label">返却予定日</label>
+            <label v-if="isPast" class="date-alert">{{today}}以降を入力して下さい。</label>
             <div class="item-value">
-              <label>{{ rentalBook.return_due_date }}</label>
-              <label v-if="rentalBook.overdue" class="overdue-alert">返却日を過ぎています。</label>
-            </div>
-          </div>
-          <div class="modal-item">
-            <label class="item-label">返却確認者</label>
-            <div class="item-value">
-              <input class="basic-input input--short-width" v-model="returnApprover">
+              <input type="date" class="basic-input input--short-width" v-model="returnDueDate">
             </div>
           </div>
         </div>
         <div class="modal-footer">
-          <button @click="register(rentalBook.id)" class="basic-button" :class="{ 'disable-button': disableButton }">返却する</button>
+          <button @click="createRental" class="basic-button" :class="{ 'disable-button': disableButton }">レンタルする</button>
         </div>
       </div>
     </div>
@@ -44,26 +38,37 @@ import http from '../../api/axios'
 export default {
   data() {
     return {
-      returnApprover: ''
+      returnDueDate: null
     }
   },
   computed: {
     ...mapGetters(['user']),
-    ...mapGetters('home', ['showModal', 'rentalBook', 'rentals']),
+    ...mapGetters('book', ['book', 'showModal']),
+    isPast: function() {
+      return new Date(this.returnDueDate) < new Date;
+    },
+    today: function() {
+      let dt = new Date;
+      let month = dt.getMonth() + 1;
+      return `${month}/${dt.getDate()}`
+    },
     disableButton: function() {
-      return this.returnApprover === '';
+      return this.returnDueDate === null || this.isPast;
     }
   },
   methods: {
-    ...mapActions('home', ['toggleModal', 'getRentals']),
+    ...mapActions('book', ['toggleModal']),
     close() {
-      this.returnApprover = '';
+      this.returnDueDate = null;
       this.toggleModal(false);
     },
-    register(rentalId) {
-      if(confirm('書籍を返却してよろしいですか？')) {
-        http.put(`/api/rentals/return/${rentalId}`, {
-          return_approver: this.returnApprover
+    createRental() {
+      if(confirm('書籍をレンタルしますか？')) {
+        http.post('/api/rentals/create', {
+          book_id: this.book.id,
+          user_id: this.user.id,
+          checkout_date: new Date,
+          return_due_date: this.returnDueDate
         }).then(response =>(
           alert(response.data.message)
         ));
@@ -96,7 +101,7 @@ export default {
   position: relative;
   z-index: 9999;
   width: 500px;
-  height: 450px;
+  height: 350px;
   margin: 0px auto;
   padding: 15px 30px;
   background-color: #fff;
@@ -154,6 +159,20 @@ export default {
   .modal-footer {
     margin-top: 50px;
     text-align: center;
+  }
+}
+
+.date-alert {
+  font-size: 12px;
+  color: red;
+
+  &:before {
+    font-family: "Font Awesome 5 Free";
+    content: '\f06a';
+    font-weight: 900;
+    font-size: 1.1em;
+    color: red;
+    margin-left: 10px;
   }
 }
 

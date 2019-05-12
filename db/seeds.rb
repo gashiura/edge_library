@@ -5,17 +5,19 @@
 #
 #   movies = Movie.create([{ name: 'Star Wars' }, { name: 'Lord of the Rings' }])
 #   Character.create(name: 'Luke', movie: movies.first)
+require 'digest/sha2'
+password = Digest::SHA256.hexdigest 'password'
 users = [
   {
     name: 'higashiura',
     email: 'gasi3319@yahoo.co.jp',
-    password: 'password',
+    password: password,
     authority: 1
   },
   {
     name: 'gashiura',
     email: 'gashiura33@yahoo.co.jp',
-    password: 'password',
+    password: password,
     authority: 2
   }
 ]
@@ -86,9 +88,7 @@ rentals = [
   {
     book_id: 1,
     user_id: 1,
-    status: '返却済',
     checkout_date: '2019-02-16 12:31:22',
-    checkout_approver: '片岡',
     return_due_date: '2019-02-23 00:00:00',
     return_date: '2019-02-22 12:31:22',
     return_approver: '早坂'
@@ -96,9 +96,7 @@ rentals = [
   {
     book_id: 2,
     user_id: 1,
-    status: '貸出中',
     checkout_date: '2019-03-01 12:31:22',
-    checkout_approver: '片岡',
     return_due_date: '2019-03-15 12:31:22',
     return_date: nil,
     return_approver: nil
@@ -106,9 +104,7 @@ rentals = [
   {
     book_id: 3,
     user_id: 1,
-    status: '貸出中',
     checkout_date: '2019-03-01 12:31:22',
-    checkout_approver: '西宮',
     return_due_date: '2019-03-05 12:31:22',
     return_date: nil,
     return_approver: nil
@@ -119,9 +115,7 @@ for rental in rentals
   Rental.create(
     book_id: rental[:book_id],
     user_id: rental[:user_id],
-    status: rental[:status],
     checkout_date: rental[:checkout_date],
-    checkout_approver: rental[:checkout_approver],
     return_due_date: rental[:return_due_date],
     return_date: rental[:return_date],
     return_approver: rental[:return_approver]

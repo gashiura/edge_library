@@ -14,11 +14,19 @@ class Api::RentalsController < ApplicationController
     render 'show', formats: 'json', handlers: 'jbuilder'
   end
 
+  def create
+    begin
+      Rental.create(rental_params)
+      render json: { status: 'success', message: "書籍をレンタルしました。" }
+    rescue
+      render json: { status: 'error', message: "書籍のレンタルでエラーが発生しました。" }
+    end
+  end
+
   def return_book
     now = Date.today
     rental = Rental.find(params['id'])
     if rental&.update(
-      status: '返却済',
       return_date: now,
       return_approver: params['return_approver'],
       updated_at: now
@@ -33,6 +41,17 @@ class Api::RentalsController < ApplicationController
         message: "書籍返却でエラーが発生しました。\n再度やり直して下さい。"
       }
     end
+  end
+
+  private
+
+  def rental_params
+    params.require(:rental).permit(
+      :book_id,
+      :user_id,
+      :checkout_date,
+      :return_due_date
+    )
   end
 
 end

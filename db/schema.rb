@@ -38,9 +38,7 @@ ActiveRecord::Schema.define(version: 2019_03_10_030823) do
   create_table "rentals", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8", force: :cascade do |t|
     t.bigint "book_id", null: false
     t.bigint "user_id", null: false
-    t.string "status", limit: 10, null: false
     t.datetime "checkout_date", null: false
-    t.string "checkout_approver", limit: 30, null: false
     t.datetime "return_due_date", null: false
     t.datetime "return_date"
     t.string "return_approver", limit: 30
@@ -63,7 +61,7 @@ ActiveRecord::Schema.define(version: 2019_03_10_030823) do
 
   create_table "users", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8", force: :cascade do |t|
     t.string "name", limit: 50, null: false
-    t.string "password", limit: 50, null: false
+    t.string "password", null: false
     t.string "email", limit: 254, null: false
     t.integer "authority", null: false
     t.datetime "created_at", null: false
