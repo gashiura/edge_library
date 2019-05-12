@@ -11,7 +11,7 @@ Rails.application.routes.draw do
     get 'rentals/show/:id' => 'rentals#show'
     put 'rentals/return/:id' => 'rentals#return_book'
 
-    get 'reviews/:book_id' => 'reviews#index'
+    post 'reviews/create' => 'reviews#create'
 
     get 'favorites/:user_id' => 'favorites#index'
   end
