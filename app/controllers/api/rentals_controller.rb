@@ -38,7 +38,7 @@ class Api::RentalsController < ApplicationController
     else
       render json: {
         status: 'error',
-        message: "書籍返却でエラーが発生しました。\n再度やり直して下さい。"
+        message: "書籍返却でエラーが発生しました。"
       }
     end
   end

@@ -5,7 +5,7 @@ class Api::ReviewsController < ApplicationController
       Review.create(review_params)
       render json: { status: 'success', message: 'レビューを投稿しました。' }
     rescue
-      render json: { status: 'error', message: 'レビューの投稿に失敗しました。' }
+      render json: { status: 'error', message: 'レビューの投稿でエラーが発生しました。' }
     end
   end
 
