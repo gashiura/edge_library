@@ -30,10 +30,11 @@
 </template>
 
 <script>
+import { mapGetters, mapActions } from 'vuex';
 import Reviews from './reviews/reviews.vue';
 import Post from './reviews/post.vue';
 import RentalModal from './rental_modal';
-import { mapGetters, mapActions } from 'vuex';
+import http from '../../api/axios';
 
 export default {
   components: {
@@ -41,10 +42,18 @@ export default {
     Post,
     RentalModal
   },
+  data() {
+    return {
+      isFavorite: false
+    }
+  },
   created: function() {
-    this.getBook(this.$route.params.id);
+    const bookId = this.$route.params.id;
+    this.getBook(bookId);
+    http.get(`/api/favorites/exists/${bookId}/${this.user.id}`).then(response => (this.isFavorite = response.data.exists));
   },
   computed: {
+    ...mapGetters(['user']),
     ...mapGetters('book', ['book']),
     isRental: function() {
       return this.book.status === '貸出中';
@@ -133,5 +142,18 @@ export default {
       margin: 20px 10px
     }
   }
+}
+
+.star {
+  float: right;
+}
+.enable-star {
+  color: #ffd700;
+}
+.disable-star {
+  color: gray;
+}
+.pointer-cursor {
+  cursor: pointer;
 }
 </style>
