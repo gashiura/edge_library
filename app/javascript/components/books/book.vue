@@ -12,8 +12,14 @@
             {{ tag }}
           </div>
         </div>
-        <div v-if="isRental" id="rental-message">この書籍はレンタル中です</div>
-        <button v-else @click="openModal" class="basic-button button-right">レンタルする</button>
+        <div>
+          <button v-if="isFavorite" @click="createFavorite" class="basic-button button-right">お気に入り解除する</button>
+          <button v-else @click="createFavorite" class="basic-button button-right">お気に入りから登録する</button>
+        </div>
+        <div>
+          <div v-if="isRental" id="rental-message">この書籍はレンタル中です</div>
+          <button v-else @click="openModal" class="basic-button button-right">レンタルする</button>
+        </div>
       </div>
     </div>
     <hr>
@@ -63,6 +69,15 @@ export default {
     ...mapActions('book', ['getBook', 'toggleModal']),
     openModal: function() {
       this.toggleModal(true);
+    },
+    createFavorite: function() {
+      http.post('/api/favorites/create', {
+        book_id: this.$route.params.id,
+        user_id: this.user.id
+      }).then(response => (
+        alert(response.data.message)
+      ));
+
     }
   }
 };

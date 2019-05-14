@@ -16,5 +16,6 @@ Rails.application.routes.draw do
 
     get 'favorites/:user_id' => 'favorites#index'
     get 'favorites/exists/:book_id/:user_id' => 'favorites#exists?'
+    post 'favorites/create' => 'favorites#create'
   end
 end
