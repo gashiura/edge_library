@@ -13,11 +13,11 @@
           </div>
         </div>
         <div>
-          <button v-if="isFavorite" @click="createFavorite" class="basic-button button-right">お気に入り解除する</button>
-          <button v-else @click="createFavorite" class="basic-button button-right">お気に入りから登録する</button>
+          <button v-if="isFavorite" @click="deleteFavorite" class="basic-button button-right button-margin">お気に入りから解除する</button>
+          <button v-else @click="createFavorite" class="basic-button button-right button-margin">お気に入り登録する</button>
         </div>
         <div>
-          <div v-if="isRental" id="rental-message">この書籍はレンタル中です</div>
+          <div v-if="isRental" class="rental-message">この書籍はレンタル中です</div>
           <button v-else @click="openModal" class="basic-button button-right">レンタルする</button>
         </div>
       </div>
@@ -54,13 +54,15 @@ export default {
     }
   },
   created: function() {
-    const bookId = this.$route.params.id;
-    this.getBook(bookId);
-    http.get(`/api/favorites/exists/${bookId}/${this.user.id}`).then(response => (this.isFavorite = response.data.exists));
+    this.getBook(this.bookId);
+    http.get(`/api/favorites/exists/${this.bookId}/${this.user.id}`).then(response => (this.isFavorite = response.data.exists));
   },
   computed: {
     ...mapGetters(['user']),
     ...mapGetters('book', ['book']),
+    bookId: function() {
+      return this.$route.params.id;
+    },
     isRental: function() {
       return this.book.status === '貸出中';
     }
@@ -72,12 +74,22 @@ export default {
     },
     createFavorite: function() {
       http.post('/api/favorites/create', {
-        book_id: this.$route.params.id,
+        book_id: this.bookId,
         user_id: this.user.id
-      }).then(response => (
-        alert(response.data.message)
-      ));
-
+      }).then(response => {
+        alert(response.data.message);
+        if(response.data.status === 'success') {
+          this.isFavorite = true;
+        }
+      });
+    },
+    deleteFavorite: function() {
+      http.delete(`/api/favorites/destroy/${this.bookId}/${this.user.id}`).then(response => {
+        alert(response.data.message);
+        if(response.data.status === 'success') {
+          this.isFavorite = false;
+        }
+      });
     }
   }
 };
@@ -137,14 +149,20 @@ export default {
         text-align: center;
       }
 
-      #rental-message {
+      .rental-message {
         float: right;
+        margin-top: 10px;
+        margin-right: 20px;
         color: red;
       }
 
       .button-right {
         float: right;
         display: block;
+      }
+
+      .button-margin {
+        margin-left: 10px;
       }
     }
   }
