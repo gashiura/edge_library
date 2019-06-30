@@ -2,7 +2,7 @@
   <div id="books-container">
     <div id="books-subject">書籍一覧</div>
     <template v-if="existsBook">
-      <div class="result-label">現在1000件中  1〜20件目を表示しています。</div>
+      <div class="result-label">{{ totalCount }}件中  {{ pageRange }}件目を表示しています。</div>
       <div v-for="book in books" :key="book.id" class="book-container">
         <img :src="book.image_url" class="book-image">
         <div class="book-detail">
@@ -26,6 +26,11 @@
         </div>
         <hr>
       </div>
+      <pagination
+        v-if="enablePagnetion"
+        :pageCount="totalPage"
+        :perPage="perPage"
+        @clickHandler="getBooks" />
     </template>
     <div v-else class="result-label">
       <label class="label-bold">{{ searchString }}</label>
@@ -36,19 +41,27 @@
 
 <script>
 import http from '../../api/axios';
+import Pagination from '../share/pagination.vue';
 
 export default {
+  components: {
+    Pagination
+  },
   data() {
     return {
-      books: []
+      books: [],
+      totalPage: 0,
+      totalCount: 0,
+      perPage: 20,
+      startIndex: 1
     };
   },
   created: function() {
-    this.getBooks();
+    this.getBooks(1);
   },
-  watch:{
-    '$route.query.searchString' (to, from) {
-      this.getBooks();
+  watch: {
+    '$route.query.searchString' () {
+      this.getBooks(1);
     }
   },
   computed: {
@@ -57,17 +70,36 @@ export default {
     },
     existsBook: function() {
       return this.books.length > 0;
+    },
+    enablePagnetion: function() {
+      return this.totalPage > 1;
+    },
+    lastIndex: function() {
+      return this.startIndex + (this.books.length - 1);
+    },
+    pageRange: function() {
+      if(this.startIndex === this.lastIndex) {
+        return this.startIndex;
+      }
+      return this.startIndex + '〜' + this.lastIndex;
     }
   },
   methods: {
     isRental: function(status) {
       return status === '貸出中';
     },
-    getBooks: function() {
+    getBooks: function(pageNum) {
       http.get('/api/books', { params: {
-        search_string: this.searchString
+        search_string: this.searchString,
+        page: pageNum,
+        per_page: this.perPage
       }}).then(
-        response => (this.books = response.data.books)
+        response => {
+          this.books = response.data.books;
+          this.totalPage = response.data.total_page;
+          this.totalCount = response.data.total_count;
+          this.startIndex = response.data.offset + 1;
+        }
       );
     }
   }

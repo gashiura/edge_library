@@ -35,7 +35,6 @@
 
 <script>
 import { mapGetters, mapActions } from 'vuex';
-import http from '../../api/axios';
 
 export default {
   data() {

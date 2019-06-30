@@ -13,18 +13,25 @@ export default {
     };
   },
   watch: {
-    '$route' (to, from) {
-      if(to.name === 'books' && Object.keys(to.query).length) { return }
+    '$route' (to) {
+      if(to.name === 'books' && Object.keys(to.query).length) {
+        return;
+      }
       this.searchString = '';
     }
   },
   methods: {
     search: function() {
-      if(this.searchString === '' || this.searchString === null) { return }
-      this.$router.push({ path: 'books', query: { searchString: this.searchString }});
+      if(this.searchString === '' || this.searchString === null) {
+        return;
+      }
+
+      this.$router.push({ path: 'books', query: {
+        searchString: this.searchString
+      }});
     }
   }
-}
+};
 </script>
 
 <style lang="scss" scoped>

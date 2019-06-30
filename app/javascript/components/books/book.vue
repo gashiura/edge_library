@@ -51,7 +51,7 @@ export default {
   data() {
     return {
       isFavorite: false
-    }
+    };
   },
   created: function() {
     this.getBook(this.bookId);

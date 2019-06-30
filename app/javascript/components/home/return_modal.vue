@@ -39,13 +39,13 @@
 
 <script>
 import { mapGetters, mapActions } from 'vuex';
-import http from '../../api/axios'
+import http from '../../api/axios';
 
 export default {
   data() {
     return {
       returnApprover: ''
-    }
+    };
   },
   computed: {
     ...mapGetters(['user']),
@@ -71,7 +71,7 @@ export default {
       }
     }
   }
-}
+};
 </script>
 
 <style lang="scss" scoped>

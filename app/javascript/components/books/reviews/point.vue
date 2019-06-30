@@ -25,7 +25,7 @@ export default {
   },
   methods: {
     update: function(point) {
-      this.$emit('update', point)
+      this.$emit('update', point);
     },
     enableStar: function(point) {
       return point <= this.point;
