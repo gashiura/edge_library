@@ -99,23 +99,25 @@ export default {
   computed: {
     ...mapGetters(['user']),
     ...mapGetters('book', ['book']),
-    bookId: function() {
+    bookId() {
       return this.$route.params.id;
     },
-    isRental: function() {
+    isRental() {
       return this.book.status === '貸出中';
     }
   },
   created() {
     this.getBook(this.bookId);
-    http.get(`/api/favorites/exists/${this.bookId}/${this.user.id}`).then(response => (this.isFavorite = response.data.exists));
+    http.get(`/api/favorites/exists/${this.bookId}/${this.user.id}`).then(response => {
+      this.isFavorite = response.data.exists;
+    });
   },
   methods: {
     ...mapActions('book', ['getBook', 'toggleModal']),
-    openModal: function() {
+    openModal() {
       this.toggleModal(true);
     },
-    createFavorite: function() {
+    createFavorite() {
       http.post('/api/favorites/create', {
         book_id: this.bookId,
         user_id: this.user.id
@@ -126,7 +128,7 @@ export default {
         }
       });
     },
-    deleteFavorite: function() {
+    deleteFavorite() {
       http.delete(`/api/favorites/destroy/${this.bookId}/${this.user.id}`).then(response => {
         alert(response.data.message);
         if(response.data.status === 'success') {

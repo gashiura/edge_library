@@ -7,8 +7,7 @@ const state = {
 
 const mutations = {
   getBook(state, payload) {
-    const bookId = payload;
-    http.get(`/api/books/show/${bookId}`).then(response => (state.book = response.data.book));
+    state.book = payload;
   },
   toggleModal(state, payload) {
     state.showModal = payload;
@@ -26,7 +25,11 @@ const getters = {
 
 const actions = {
   getBook({ commit }, payload) {
-    commit('getBook', payload);
+    const bookId = payload;
+    http.get(`/api/books/show/${bookId}`).then(response => {
+      commit('getBook', response.data.book);
+    });
+
   },
   toggleModal({ commit }, payload) {
     commit('toggleModal', payload);

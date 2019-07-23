@@ -47,6 +47,7 @@ export default {
   computed: {
     ...mapGetters('book', ['book']),
     reviewExists() {
+      if (this.book.reviews === undefined) return false;
       return this.book.reviews.length > 0;
     }
   }
