@@ -1,10 +1,18 @@
 <template>
   <transition name="modal">
-    <div v-if="showModal" class="modal-mask">
+    <div
+      v-if="showModal"
+      class="modal-mask"
+    >
       <div class="modal-wrapper">
         <div class="modal-container">
           <div class="modal-close">
-            <button class="small-button button-right" @click="close">Close</button>
+            <button
+              class="small-button button-right"
+              @click="close"
+            >
+              Close
+            </button>
           </div>
           <div class="modal-header">
             書籍をレンタルする
@@ -12,18 +20,33 @@
           <div class="modal-content">
             <div class="modal-item">
               <label class="item-label">書籍名</label>
-              <div class="item-value">{{ book.name }}</div>
+              <div class="item-value">
+                {{ book.name }}
+              </div>
             </div>
             <div class="modal-item">
               <label class="item-label">返却予定日</label>
-              <label v-if="isPast" class="date-alert">{{ today }}以降を入力して下さい。</label>
+              <label
+                v-if="isPast"
+                class="date-alert"
+              >{{ today }}以降を入力して下さい。</label>
               <div class="item-value">
-                <input type="date" class="basic-input input--short-width" v-model="returnDueDate">
+                <input
+                  v-model="returnDueDate"
+                  type="date"
+                  class="basic-input input--short-width"
+                >
               </div>
             </div>
           </div>
           <div class="modal-footer">
-            <button @click="createRental" class="basic-button" :class="{ 'disable-button': disableButton }">レンタルする</button>
+            <button
+              class="basic-button"
+              :class="{ 'disable-button': disableButton }"
+              @click="createRental"
+            >
+              レンタルする
+            </button>
           </div>
         </div>
       </div>

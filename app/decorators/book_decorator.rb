@@ -1,9 +1,15 @@
+require 'json'
+
 class BookDecorator < Draper::Decorator
   delegate_all
   decorates_associations :reviews
 
   def description
     return object.description.gsub("\n", '<br>')
+  end
+
+  def tags
+    return object.tags ? JSON.parse(object.tags)['tags'] : []
   end
 
   def status

@@ -1,8 +1,8 @@
 <template>
   <div id="content">
-    <rentals/>
-    <favorites/>
-    <return-modal/>
+    <rentals />
+    <favorites />
+    <return-modal />
   </div>
 </template>
 

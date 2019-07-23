@@ -1,18 +1,45 @@
 <template>
   <div id="gnavi-wrapper">
     <nav id="gnavi">
-      <div id="del-navi" @click="toggleNavBar">
-        <span></span>
-        <span></span>
+      <div
+        id="del-navi"
+        @click="toggleNavBar"
+      >
+        <span />
+        <span />
       </div>
       <ul id="menu">
-        <li><router-link @click.native="toggleNavBar" to="/">ホーム</router-link></li>
-        <li><router-link @click.native="toggleNavBar" to="/books">書籍一覧</router-link></li>
-        <li><router-link  @click.native="toggleNavBar" to="/home">アカウント設定</router-link></li>
+        <li>
+          <router-link
+            to="/"
+            @click.native="toggleNavBar"
+          >
+            ホーム
+          </router-link>
+        </li>
+        <li>
+          <router-link
+            to="/books"
+            @click.native="toggleNavBar"
+          >
+            書籍一覧
+          </router-link>
+        </li>
+        <li>
+          <router-link
+            to="/home"
+            @click.native="toggleNavBar"
+          >
+            アカウント設定
+          </router-link>
+        </li>
         <li><a @click="checkLogout">ログアウト</a></li>
       </ul>
     </nav>
-    <div id="gnavi-out" @click="toggleNavBar"></div>
+    <div
+      id="gnavi-out"
+      @click="toggleNavBar"
+    />
   </div>
 </template>
 

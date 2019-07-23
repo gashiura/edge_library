@@ -2,7 +2,7 @@ class Api::FavoritesController < ApplicationController
 
   def index
     @favorites = FavoriteDecorator.decorate_collection(
-      Favorite.where(user_id: params[:user_id])
+      Favorite.where(user_id: params[:user_id]).limit(20)
     )
     render 'index', formats: 'json', handlers: 'jbuilder'
   end

@@ -1,10 +1,19 @@
 <template>
   <ul class="breadcrumb">
-    <li v-for="breadclumb in breadclumbs" :key="breadclumb.pagename" itemscope="itemscope" itemtype="http://data-vocabulary.org/Breadcrumb">
+    <li
+      v-for="breadclumb in breadclumbs"
+      :key="breadclumb.pagename"
+      itemscope="itemscope"
+      itemtype="http://data-vocabulary.org/Breadcrumb"
+    >
       <span v-if="disableLink(breadclumb.name)">
         {{ breadclumb.pageName }}
       </span>
-      <router-link v-else :to="{ name: breadclumb.routeName }" itemprop="url">
+      <router-link
+        v-else
+        :to="{ name: breadclumb.routeName }"
+        itemprop="url"
+      >
         <span itemprop="title">{{ breadclumb.pageName }}</span>
       </router-link>
     </li>

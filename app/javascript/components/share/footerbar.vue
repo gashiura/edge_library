@@ -1,7 +1,9 @@
 <template>
   <footer class="footer-container">
     <hr>
-    <div class="footer-text">Copyright © 2019 MebersEdge .inc All Rights Reserved.</div>
+    <div class="footer-text">
+      Copyright © 2019 MebersEdge .inc All Rights Reserved.
+    </div>
   </footer>
 </template>
 

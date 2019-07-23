@@ -1,10 +1,18 @@
 <template>
   <header>
-    <router-link to="/" id="title">{{ title }}</router-link>
-    <div id="btn-gnavi" @click="toggleNavBar">
-      <span></span>
-      <span></span>
-      <span></span>
+    <router-link
+      id="title"
+      to="/"
+    >
+      {{ title }}
+    </router-link>
+    <div
+      id="btn-gnavi"
+      @click="toggleNavBar"
+    >
+      <span />
+      <span />
+      <span />
     </div>
     <hr>
   </header>

@@ -1,11 +1,11 @@
 <template>
   <div class="wrapper">
-    <header-bar v-if="notLoginPath"></header-bar>
-    <nav-bar v-if="shownNavBar"></nav-bar>
-    <breadclumb-list v-if="notLoginPath"></breadclumb-list>
-    <search-bar v-if="notLoginPath"></search-bar>
-    <router-view></router-view>
-    <footer-bar></footer-bar>
+    <header-bar v-if="notLoginPath" />
+    <nav-bar v-if="shownNavBar" />
+    <breadclumb-list v-if="notLoginPath" />
+    <search-bar v-if="notLoginPath" />
+    <router-view />
+    <footer-bar />
   </div>
 </template>
 

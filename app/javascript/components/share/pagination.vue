@@ -3,15 +3,15 @@
     :page-count="pageCount"
     :page-range="perPage"
     :margin-pages="2"
-    :clickHandler="clickHandler"
+    :click-handler="clickHandler"
     :prev-text="'前へ'"
     :next-text="'次へ'"
     :container-class="'pagination'"
     :prev-class="'prev-item'"
     :next-class="'next-item'"
     :active-class="'active'"
-    :disable-class="'disable'">
-  </paginate>
+    :disable-class="'disable'"
+  />
 </template>
 
 <script>

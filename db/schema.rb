@@ -20,7 +20,6 @@ ActiveRecord::Schema.define(version: 2019_03_10_030823) do
     t.string "publisher", null: false
     t.string "category", limit: 10, null: false
     t.json "tags", null: false
-    t.string "image_path", null: false
     t.integer "quantity", null: false
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false

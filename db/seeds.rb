@@ -5,7 +5,10 @@
 #
 #   movies = Movie.create([{ name: 'Star Wars' }, { name: 'Lord of the Rings' }])
 #   Character.create(name: 'Luke', movie: movies.first)
+require 'csv'
 require 'digest/sha2'
+require 'json'
+
 password = Digest::SHA256.hexdigest 'password'
 users = [
   {
@@ -31,56 +34,16 @@ for user in users
   )
 end
 
-books = [
-  {
-    id: 1,
-    eg_id: "EG000001",
-    name: "[試して理解]Linuxのしくみ ~実験と図解で学ぶOSとハードウェアの基礎知識",
-    author: '武内 覚',
-    description: 'いまどきのOSのしくみが、実験と図解でわかる!',
-    publisher: '技術評論社',
-    category: '技術書',
-    tags: { tags: ['OS', 'Linux'] },
-    image_path: '../../../assets/images/books/001.jpeg',
-    quantity: 1
-  },
-  {
-    id: 2,
-    eg_id: "EG000002",
-    name: "実践ハイパフォーマンスMySQL 第3版",
-    author: 'Baron Schwartz (著), Peter Zaitsev (著), Vadim Tkachenko (著), 菊池 研自 (監修), 株式会社クイープ (翻訳)',
-    description: '新しい情報を盛り込み、信頼性や正確さといった目標を重視するという前版からの方針に加えて、第3版では、MySQLの動作の仕組みに関する事実だけでなく、MySQLがそのように動作する原理を伝えたいと考えて執筆されています。',
-    publisher: 'オライリージャパン',
-    category: '技術書',
-    tags: { tags: ['RDB','MySQL'] },
-    image_path: '../../../assets/images/books/002.jpeg',
-    quantity: 1
-  },
-  {
-    id: 3,
-    eg_id: "EG000003",
-    name: "オブジェクト指向設計実践ガイド ~Rubyでわかる 進化しつづける柔軟なアプリケーションの育て方",
-    author: 'Sandi Metz (著), 髙山 泰基  (翻訳)',
-    description: "オブジェクト指向設計の名著として名高い\“Practical Object-Oriented Design in Ruby\"、待望の翻訳版! 使いこなせるようになるととても便利なオブジェクト指向ですが、「なんとなく」の理解で使っていると、大きな罠にかかってしまいます。\n\n本書は、保守性を上げて運用コストを下げるアプリケーションをつくるために、クラス設計から基本概念、継承のテクニック、ダックタイプ、そしてテスト設計まで、幅広くカバーしています。オブジェクト指向言語を使用するすべての人におすすめの1冊です。",
-    publisher: '技術評論社',
-    category: '技術書',
-    tags: { tags: ['Ruby', 'オブジェクト指向'] },
-    image_path: '../../../assets/images/books/003.jpeg',
-    quantity: 1
-  }
-]
-
-for book in books do
+CSV.foreach(Rails.root.join('db', 'seeds', 'books.csv'), headers: true) do |book|
   Book.create(
-    eg_id: book[:eg_id],
-    name: book[:name],
-    author: book[:author],
-    description: book[:description],
-    publisher: book[:publisher],
-    category: book[:category],
-    tags: book[:tags],
-    image_path: book[:image_path],
-    quantity: book[:quantity]
+    name: book[1],
+    eg_id: book[2],
+    author: book[3],
+    description: book[4].gsub('\n', "\n"),
+    publisher: book[5],
+    category: book[6],
+    tags: { tags: book[7].split("\s") }.to_json,
+    quantity: book[8]
   )
 end
 

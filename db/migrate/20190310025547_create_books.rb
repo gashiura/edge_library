@@ -8,7 +8,6 @@ class CreateBooks < ActiveRecord::Migration[5.2]
       t.string :publisher, limit: 255, null: false
       t.string :category, limit: 10, null: false
       t.json :tags, null: false
-      t.string :image_path, limit: 255, null: false
       t.integer :quantity, null: false
       t.timestamps
     end

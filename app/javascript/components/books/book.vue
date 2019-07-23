@@ -1,37 +1,80 @@
 <template>
   <div id="book-container">
     <div id="book-detail-container">
-      <img :src="book.image_url" class="book-image">
+      <img
+        :src="book.image_url"
+        class="book-image"
+      >
       <div id="book-detail">
-        <div id="book-category">{{ book.category }}</div>
-        <div id="book-title">{{ book.name }}</div>
-        <div id="book-author">著書： {{ book.author }}</div>
-        <div id="book-publisher">出版社： {{ book.publisher }}</div>
+        <div id="book-category">
+          {{ book.category }}
+        </div>
+        <div id="book-title">
+          {{ book.name }}
+        </div>
+        <div id="book-author">
+          著書： {{ book.author }}
+        </div>
+        <div id="book-publisher">
+          出版社： {{ book.publisher }}
+        </div>
         <div id="tags-container">
-          <div v-for="tag in book.tags['tags']" :key="tag" class="book-tag">
-            {{ tag }}
+          <div
+            v-for="tag in book.tags"
+            :key="tag"
+            class="book-tag"
+          >
+            # {{ tag }}
           </div>
         </div>
         <div>
-          <button v-if="isFavorite" @click="deleteFavorite" class="basic-button button-right button-margin">お気に入りから解除する</button>
-          <button v-else @click="createFavorite" class="basic-button button-right button-margin">お気に入り登録する</button>
+          <button
+            v-if="isFavorite"
+            class="basic-button button-right button-margin"
+            @click="deleteFavorite"
+          >
+            お気に入りから解除する
+          </button>
+          <button
+            v-else
+            class="basic-button button-right button-margin"
+            @click="createFavorite"
+          >
+            お気に入り登録する
+          </button>
         </div>
         <div>
-          <div v-if="isRental" class="rental-message">この書籍はレンタル中です</div>
-          <button v-else @click="openModal" class="basic-button button-right">レンタルする</button>
+          <div
+            v-if="isRental"
+            class="rental-message"
+          >
+            この書籍はレンタル中です
+          </div>
+          <button
+            v-else
+            class="basic-button button-right"
+            @click="openModal"
+          >
+            レンタルする
+          </button>
         </div>
       </div>
     </div>
     <hr>
-    <div id="description-container">
-      <h2 class="title">概要</h2>
-      <div v-html="book.description" id="description"></div>
+    <div class="description-container">
+      <h2 class="title">
+        概要
+      </h2>
+      <div
+        class="description"
+        v-html="book.description"
+      />
     </div>
     <hr>
-    <reviews :reviews="book.reviews"></reviews>
+    <reviews />
     <hr>
-    <post/>
-    <rental-modal/>
+    <post />
+    <rental-modal />
   </div>
 </template>
 
@@ -53,10 +96,6 @@ export default {
       isFavorite: false
     };
   },
-  created: function() {
-    this.getBook(this.bookId);
-    http.get(`/api/favorites/exists/${this.bookId}/${this.user.id}`).then(response => (this.isFavorite = response.data.exists));
-  },
   computed: {
     ...mapGetters(['user']),
     ...mapGetters('book', ['book']),
@@ -66,6 +105,10 @@ export default {
     isRental: function() {
       return this.book.status === '貸出中';
     }
+  },
+  created() {
+    this.getBook(this.bookId);
+    http.get(`/api/favorites/exists/${this.bookId}/${this.user.id}`).then(response => (this.isFavorite = response.data.exists));
   },
   methods: {
     ...mapActions('book', ['getBook', 'toggleModal']),
@@ -135,7 +178,7 @@ export default {
       }
 
       #book-author, #book-publisher {
-        font-size: 16px;
+        font-size: 12px;
         word-wrap: break-word;
         margin: 5px 20px;
       }
@@ -143,10 +186,12 @@ export default {
       .book-tag {
         display: inline-block;
         margin: 20px 10px;
-        padding: 0px 15px;
-        background: #add8e6;
+        padding: 3px 15px;
+        background: black;
+        color: white;
         border-radius: 10px;
         text-align: center;
+        font-size: 12px;
       }
 
       .rental-message {
@@ -167,12 +212,12 @@ export default {
     }
   }
 
-  #description-container {
+  .description-container {
     margin: 10px;
-    height: 200px;
 
-    #description {
-      margin: 20px 10px
+    .description {
+      margin: 20px 40px;
+      font-size: 14px;
     }
   }
 }

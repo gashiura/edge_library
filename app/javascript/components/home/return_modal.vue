@@ -1,40 +1,62 @@
 <template>
-<transition name="modal">
-  <div v-if="showModal" class="modal-mask">
-    <div class="modal-wrapper">
-      <div class="modal-container">
-        <div class="modal-close">
-          <button class="small-button button-right" @click="close">Close</button>
-        </div>
-        <div class="modal-header">
-          書籍を返却する
-        </div>
-        <div class="modal-content">
-          <div class="modal-item">
-            <label class="item-label">書籍名</label>
-            <div class="item-value">{{ rentalBook.book_name }}</div>
+  <transition name="modal">
+    <div
+      v-if="showModal"
+      class="modal-mask"
+    >
+      <div class="modal-wrapper">
+        <div class="modal-container">
+          <div class="modal-close">
+            <button
+              class="small-button button-right"
+              @click="close"
+            >
+              Close
+            </button>
           </div>
-          <div class="modal-item">
-            <label class="item-label">返却予定日</label>
-            <div class="item-value">
-              <label>{{ rentalBook.return_due_date }}</label>
-              <label v-if="rentalBook.overdue" class="overdue-alert">返却日を過ぎています。</label>
+          <div class="modal-header">
+            書籍を返却する
+          </div>
+          <div class="modal-content">
+            <div class="modal-item">
+              <label class="item-label">書籍名</label>
+              <div class="item-value">
+                {{ rentalBook.book_name }}
+              </div>
+            </div>
+            <div class="modal-item">
+              <label class="item-label">返却予定日</label>
+              <div class="item-value">
+                <label>{{ rentalBook.return_due_date }}</label>
+                <label
+                  v-if="rentalBook.overdue"
+                  class="overdue-alert"
+                >返却日を過ぎています。</label>
+              </div>
+            </div>
+            <div class="modal-item">
+              <label class="item-label">返却確認者</label>
+              <div class="item-value">
+                <input
+                  v-model="returnApprover"
+                  class="basic-input input--short-width"
+                >
+              </div>
             </div>
           </div>
-          <div class="modal-item">
-            <label class="item-label">返却確認者</label>
-            <div class="item-value">
-              <input class="basic-input input--short-width" v-model="returnApprover">
-            </div>
+          <div class="modal-footer">
+            <button
+              class="basic-button"
+              :class="{ 'disable-button': disableButton }"
+              @click="register(rentalBook.id)"
+            >
+              返却する
+            </button>
           </div>
-        </div>
-        <div class="modal-footer">
-          <button @click="register(rentalBook.id)" class="basic-button" :class="{ 'disable-button': disableButton }">返却する</button>
         </div>
       </div>
     </div>
-  </div>
-</transition>
+  </transition>
 </template>
 
 <script>

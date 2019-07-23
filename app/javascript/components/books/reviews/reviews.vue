@@ -1,35 +1,53 @@
 <template>
   <div id="review-container">
-    <h2 class="title">レビュー</h2>
-    <template v-if="existsReview">
-      <div v-for="review in reviews" :key="review.id"  class="reviews">
+    <h2 class="title">
+      レビュー
+    </h2>
+    <template v-if="reviewExists">
+      <div
+        v-for="review in book.reviews"
+        :key="review.id"
+        class="reviews"
+      >
         <div class="review-info">
-          <point :point="review.point" :enableClick="false"></point>
-          <div class="review-user">投稿者：{{ review.user_name }}</div>
-          <div class="reviwe-date">投稿日：{{ review.created_at }}</div>
+          <point
+            :point="review.point"
+            :enable-click="false"
+          />
+          <div class="review-user">
+            投稿者：{{ review.user_name }}
+          </div>
+          <div class="reviwe-date">
+            投稿日：{{ review.created_at }}
+          </div>
         </div>
-        <div v-html="review.content" class="review"></div>
+        <div
+          class="review"
+          v-html="review.content"
+        />
       </div>
     </template>
-    <div v-else class="reviews">
+    <div
+      v-else
+      class="reviews"
+    >
       レビューがありません。
     </div>
   </div>
 </template>
 
 <script>
+import { mapGetters } from 'vuex';
 import Point from './point.vue';
 
 export default {
   components: {
     Point
   },
-  props: {
-    reviews: Array
-  },
   computed: {
-    existsReview: function() {
-      return this.reviews.length > 0;
+    ...mapGetters('book', ['book']),
+    reviewExists() {
+      return this.book.reviews.length > 0;
     }
   }
 };
@@ -43,17 +61,20 @@ export default {
     font-size: 20px;
   }
   .reviews {
-    margin: 40px 10px;
+    margin: 20px 40px 40px 40px;
+    font-size: 12px;
 
     .review-info {
       display: inline-block;
       width: 100%;
-      margin-bottom: 20px;
+      margin-bottom: 10px;
 
       .review-user, .reviwe-date {
         display: inline-block;
       }
-      .reviwe-date { float: right }
+      .reviwe-date {
+        margin-left: 30px;
+      }
     }
   }
 }

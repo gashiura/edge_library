@@ -1,16 +1,37 @@
 <template>
   <div id="login-container">
     <label id="title">EdgeLibrary</label>
-    <div id="input-container" @keyup.enter="authenticate">
+    <div
+      id="input-container"
+      @keyup.enter="authenticate"
+    >
       <div class="form-item">
-        <div id="item-label">Eメール</div>
-        <input type="text" class="basic-input" v-model="email">
+        <div id="item-label">
+          Eメール
+        </div>
+        <input
+          v-model="email"
+          type="text"
+          class="basic-input"
+        >
       </div>
       <div class="form-item">
-        <div id="item-label">パスワード</div>
-        <input type="password" class="basic-input" v-model="password">
+        <div id="item-label">
+          パスワード
+        </div>
+        <input
+          v-model="password"
+          type="password"
+          class="basic-input"
+        >
       </div>
-      <button class="basic-button" id="login-button" @click="authenticate">ログイン</button>
+      <button
+        id="login-button"
+        class="basic-button"
+        @click="authenticate"
+      >
+        ログイン
+      </button>
     </div>
   </div>
 </template>

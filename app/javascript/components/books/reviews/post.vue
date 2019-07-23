@@ -1,15 +1,34 @@
 <template>
   <div id="post-container">
-    <h2 class="title">レビューを投稿する</h2>
+    <h2 class="title">
+      レビューを投稿する
+    </h2>
     <div id="post-form">
       <div id="evaluation-container">
-        <h3 class="middle-title">評価</h3>
-        <point :enableClick="true" :point="point" @update="updatePoint"></point>
+        <h3 class="middle-title">
+          評価
+        </h3>
+        <point
+          :enable-click="true"
+          :point="point"
+          @update="updatePoint"
+        />
       </div>
       <div id="review-container">
-        <h3 class="middle-title">レビュー</h3>
-        <textarea id="post-review" v-model="content"></textarea>
-        <button @click="createReview" class="basic-button" id="post-button">投稿する</button>
+        <h3 class="middle-title">
+          レビュー
+        </h3>
+        <textarea
+          id="post-review"
+          v-model="content"
+        />
+        <button
+          id="post-button"
+          class="basic-button"
+          @click="createReview"
+        >
+          投稿する
+        </button>
       </div>
     </div>
   </div>
@@ -66,7 +85,7 @@ export default {
   }
 
   .middle-title {
-    font-size: 16px;
+    font-size: 12px;
     margin-bottom: 10px;
   }
 

@@ -1,45 +1,97 @@
 <template>
-  <div id="favorite-container">
-    <label id="favorite-title">最近のお気に入り</label>
-    <div id="favorite-thumbnail">
-      <button class="move-button move-button--back">◀︎</button>
-      <div v-for="favorite in favorites" :key="favorite.id" class="image-container">
-        <img :src="favorite.image_url" class="favorite-image">
-        <router-link to="/book/1" class="favorite-link">{{ favorite.book_name }}</router-link>
+  <div class="favorite-container">
+    <label class="favorite-title">最近のお気に入り</label>
+    <div class="favorite-thumbnail">
+      <div class="prev-wrapper">
+        <button
+          :class="{ 'move-button--disable': totalPage === 1 || currentPage === 1 }"
+          class="move-button"
+          @click="movePrev">
+          ◀︎
+        </button>
       </div>
-      <button class="move-button move-button--next">▶︎</button>
+      <div class="image-wrapper">
+        <div
+          v-for="favorite in currentFavorites"
+          :key="favorite.id"
+          class="image-container"
+        >
+          <img
+            :src="favorite.image_url"
+            class="favorite-image"
+          >
+          <router-link
+            to="/book/1"
+            class="favorite-link"
+          >
+            {{ favorite.book_name }}
+          </router-link>
+        </div>
+      </div>
+      <div class="next-wrapper">
+        <button
+          :class="{ 'move-button--disable': totalPage === 1 || currentPage === totalPage }"
+          class="move-button"
+          @click="moveNext">
+          ▶︎
+        </button>
+      </div>
     </div>
   </div>
 </template>
 
 <script>
+import { mapGetters } from 'vuex';
 import http from '../../api/axios';
 
 export default {
   data() {
     return {
       favorites: [],
-      userId: 1
+      currentPage: 1,
+      per_page: 5
     };
   },
-  created: function() {
-    this.getFavorites(this.userId);
+  computed: {
+    ...mapGetters(['user']),
+    offset() {
+      return this.per_page * (this.currentPage - 1);
+    },
+    totalPage() {
+      return Math.ceil(this.favorites.length / this.per_page);
+    },
+    currentFavorites() {
+      return this.favorites.slice(this.offset, this.per_page * this.currentPage);
+    }
+  },
+  created() {
+    this.getFavorites();
   },
   methods: {
-    getFavorites: function(userId) {
-      http.get(`/api/favorites/${userId}`).then(response => (
+    getFavorites() {
+      http.get(`/api/favorites/${this.user.id}`).then(response => (
         this.favorites = response.data.favorites)
       );
+    },
+    movePrev() {
+      if(this.currentPage !== 1) {
+        this.currentPage--;
+      }
+    },
+    moveNext() {
+      if(this.currentPage !== this.totalPage) {
+        this.currentPage++;
+      }
     }
   }
 };
 </script>
 
 <style lang="scss" scoped>
-#favorite-container {
+.favorite-container {
   margin-top: 50px;
 
-  #favorite-title {
+  .favorite-title {
     font-size: 18px;
     margin-bottom: 20px;
 
@@ -53,47 +105,70 @@ export default {
     }
   }
 
-  #favorite-thumbnail {
+  .favorite-thumbnail {
+    display: flex;
     margin-top: 20px;
     width: auto;
     height: 300px;
-    background: #f5f5f5;
     border-radius: 5px;
 
-    .image-container {
-      display: inline-block;
-      vertical-align: top;
-      margin: 30px;
+    .image-wrapper {
+      display: flex;
+      width: 1050px;
 
-      .favorite-image {
-        max-width: 150px;
-        max-height: 200px;
-        box-shadow: 0 2px 5px 1px rgba(0,0,0,.2);
-        border-radius: 3px;
-        border: none;
-      }
-      .favorite-link {
-        display: block;
-        font-size: 12px;
-        max-width: 150px;
+      .image-container {
+        display: inline-block;
+        vertical-align: top;
+        margin: 30px;
+
+        .favorite-image {
+          max-width: 150px;
+          max-height: 200px;
+          box-shadow: 0 2px 5px 1px rgba(0,0,0,.2);
+          border-radius: 3px;
+          border: none;
+        }
+        .favorite-link {
+          display: block;
+          font-size: 12px;
+          max-width: 150px;
+        }
       }
     }
-    .move-button {
-      display: inline-block;
-      vertical-align: middle;
-      width: 30px;
-      height: 300px;
-      margin: 0px auto;
-      padding: 5px;
-      border-radius: 5px;
-      font-size: 14px;
-      color: black;
-      background: lightgray;
-      outline: 0;
+  }
 
-      &--back { float: left; }
-      &--next { float: right; }
-      &:hover { background: #ffffb7 }
+  .prev-wrapper {
+    display: flex;
+    justify-content: flex-start;
+    align-items: center;
+    width: 65px;
+  }
+
+  .next-wrapper {
+    display: flex;
+    justify-content: flex-end;
+    align-items: center;
+    width: 65px;
+  }
+
+  .move-button {
+    text-align: center;
+    width: 50px;
+    height: 35px;
+    margin: 0px auto;
+    padding: 5px;
+    border-radius: 5px;
+    font-size: 14px;
+    color: white;
+    background: #727171;
+    outline: 0;
+
+    &:hover:not(.move-button--disable) {
+      background: #474a4d
+    }
+
+    &--disable {
+      opacity: 0.5;
     }
   }
 }

@@ -1,7 +1,16 @@
 <template>
   <div class="search-container">
-    <input class="basic-input search-input--width" v-model="searchString" placeholder="検索したい書籍名を入力して下さい。">
-    <button class="basic-button basic-button--short-width" @click="search">検索</button>
+    <input
+      v-model="searchString"
+      class="basic-input search-input--width"
+      placeholder="検索したい書籍名を入力して下さい。"
+    >
+    <button
+      class="basic-button basic-button--short-width"
+      @click="search"
+    >
+      検索
+    </button>
   </div>
 </template>
 

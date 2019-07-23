@@ -1,35 +1,67 @@
 <template>
   <div id="rentals-container">
     <label id="rental-title">レンタル中の書籍</label>
-    <label v-if="hasOverdueBook" id="warinig-message">返却予定日を過ぎている書籍があります。</label>
-    <table v-if="existsRetalBook" id="table">
+    <label
+      v-if="hasOverdueBook"
+      id="warinig-message"
+    >返却予定日を過ぎている書籍があります。</label>
+    <table
+      v-if="existsRetalBook"
+      id="table"
+    >
       <thead id="table-header">
         <tr class="table-row">
-          <th class="col-header" :class="column.styleName" v-for="column in columns" :key="column.name">
+          <th
+            v-for="column in columns"
+            :key="column.name"
+            class="col-header"
+            :class="column.styleName"
+          >
             {{ column.name }}
           </th>
         </tr>
       </thead>
       <tbody id="table-body">
-        <tr v-for="rental in rentals" :key="rental.id" class="table-row">
-          <td class="cell col-id">{{ rental.eg_id }}</td>
+        <tr
+          v-for="rental in rentals"
+          :key="rental.id"
+          class="table-row"
+        >
+          <td class="cell col-id">
+            {{ rental.eg_id }}
+          </td>
           <td class="cell col-book">
             <router-link :to="{ name: 'book', params: { id: rental.book_id }}">
               {{ rental.book_name }}
             </router-link>
           </td>
-          <td class="cell col-checkuout-date">{{ rental.checkout_date }}</td>
+          <td class="cell col-checkuout-date">
+            {{ rental.checkout_date }}
+          </td>
           <td class="cell col-return-due-date">
-            <i v-if="rental.overdue" class="fas fa-exclamation-circle exclamation-mark"></i>
+            <i
+              v-if="rental.overdue"
+              class="fas fa-exclamation-circle exclamation-mark"
+            />
             {{ rental.return_due_date }}
           </td>
           <td class="cell col-return">
-            <button @click="openModal(rental.id)" class="small-button modal-button-margin">返却</button>
+            <button
+              class="small-button modal-button-margin"
+              @click="openModal(rental.id)"
+            >
+              返却
+            </button>
           </td>
         </tr>
       </tbody>
     </table>
-    <div v-else id="nobook-message">レンタル中の書籍はありません。</div>
+    <div
+      v-else
+      id="nobook-message"
+    >
+      レンタル中の書籍はありません。
+    </div>
   </div>
 </template>
 
@@ -63,7 +95,7 @@ export default {
       ]
     };
   },
-  created: function() {
+  created() {
     this.getRentals(this.user.id);
   },
   computed: {

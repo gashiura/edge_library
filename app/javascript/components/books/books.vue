@@ -1,14 +1,30 @@
 <template>
   <div id="books-container">
-    <div id="books-subject">書籍一覧</div>
+    <div id="books-subject">
+      書籍一覧
+    </div>
     <template v-if="existsBook">
-      <div class="result-label">{{ totalCount }}件中  {{ pageRange }}件目を表示しています。</div>
-      <div v-for="book in books" :key="book.id" class="book-container">
-        <img :src="book.image_url" class="book-image">
+      <div class="result-label">
+        {{ totalCount }}件中  {{ pageRange }}件目を表示しています。
+      </div>
+      <div
+        v-for="book in books"
+        :key="book.id"
+        class="book-container"
+      >
+        <img
+          :src="book.image_url"
+          class="book-image"
+        >
         <div class="book-detail">
-          <router-link :to="{ name: 'book', params: { id: book.id }}" class="book-title">{{ book.name }}</router-link>
+          <router-link
+            :to="{ name: 'book', params: { id: book.id }}"
+            class="book-title"
+          >
+            {{ book.name }}
+          </router-link>
           <div class="book-category">
-            <label >カテゴリ：</label>
+            <label>カテゴリ：</label>
             <label>{{ book.category }}</label>
           </div>
           <div class="book-author">
@@ -19,20 +35,35 @@
             <label>出版社：</label>
             <label>{{ book.publisher }}</label>
           </div>
-          <div v-for="tag in book.tags['tags']" :key="tag" class="book-tag">{{ tag }}</div>
+          <div
+            v-for="tag in book.tags"
+            :key="tag"
+            class="book-tag"
+          >
+            # {{ tag }}
+          </div>
         </div>
         <div class="book-status">
-          <div class="status-ok" :class="{'status-rental': isRental(book.status)}">{{ book.status }}</div>
+          <div
+            class="status-ok"
+            :class="{'status-rental': isRental(book.status)}"
+          >
+            {{ book.status }}
+          </div>
         </div>
         <hr>
       </div>
       <pagination
         v-if="enablePagnetion"
-        :pageCount="totalPage"
-        :perPage="perPage"
-        @clickHandler="getBooks" />
+        :page-count="totalPage"
+        :per-page="perPage"
+        @clickHandler="getBooks"
+      />
     </template>
-    <div v-else class="result-label">
+    <div
+      v-else
+      class="result-label"
+    >
       <label class="label-bold">{{ searchString }}</label>
       <label>に一致する検索結果はありませんでした。</label>
     </div>
@@ -56,14 +87,6 @@ export default {
       startIndex: 1
     };
   },
-  created: function() {
-    this.getBooks(1);
-  },
-  watch: {
-    '$route.query.searchString' () {
-      this.getBooks(1);
-    }
-  },
   computed: {
     searchString: function() {
       return this.$route.query.searchString;
@@ -83,6 +106,14 @@ export default {
       }
       return this.startIndex + '〜' + this.lastIndex;
     }
+  },
+  watch: {
+    '$route.query.searchString' () {
+      this.getBooks(1);
+    }
+  },
+  created: function() {
+    this.getBooks(1);
   },
   methods: {
     isRental: function(status) {
@@ -151,7 +182,7 @@ export default {
       }
 
       .book-category, .book-author, .book-publisher {
-        font-size: 14px;
+        font-size: 12px;
         word-wrap: break-word;
         margin: 5px 20px;
       }
@@ -161,7 +192,8 @@ export default {
         margin: 10px;
         padding: 0px 15px;
         font-size: 12px;
-        background: #add8e6;
+        background: black;
+        color: white;
         border-radius: 10px;
         text-align: center;
       }
