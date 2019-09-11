@@ -14,6 +14,7 @@ default: &default
   encoding: utf8
   database: edge_library
   pool: <%= ENV.fetch("RAILS_MAX_THREADS") { 5 } %>
+  host: localhost
   username: root
   password: password
   socket: /tmp/mysql.sock
@@ -48,5 +49,7 @@ test:
 #
 production:
   <<: *default
-  username: root
-  password: <%= ENV['EDGE_LIBRARY_DATABASE_PASSWORD'] %>
+  host: <%= ENV['MYSQL_HOST'] %>
+  username: <%= ENV['MYSQL_USER'] %>
+  password: <%= ENV['MYSQL_PASSWORD'] %>
+  database: <%= ENV['MYSQL_DATABASE'] %>
