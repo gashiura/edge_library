@@ -1,0 +1,28 @@
+version: '3'
+services:
+  db:
+    image: mysql:5.7
+    container_name: mysql
+    environment:
+      MYSQL_DATABASE: edge_library_development
+      MYSQL_USER: mysql
+      MYSQL_PASSWORD: password
+      MYSQL_ROOT_PASSWORD: password
+    command: mysqld --character-set-server=utf8mb4 --collation-server=utf8mb4_unicode_ci
+    volumes:
+      - ./tmp/db/data:/var/lib/mysql
+    ports:
+      - 3307:3306
+  web:
+    container_name: web
+    build: .
+    command: bash -c "rm -f tmp/pids/server.pid && bundle exec rails s -p 3000 -b '0.0.0.0'"
+    environment:
+      MYSQL_USER: mysql
+    volumes:
+      - .:/home/edge_library
+    ports:
+      - "3000:3000"
+    tty: true
+    depends_on:
+      - db
