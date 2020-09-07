@@ -2,4 +2,5 @@
 log
 tmp
 vendor/assets
+vendor/bundle
 node_modules
