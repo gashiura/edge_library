@@ -39,7 +39,6 @@
 <script>
 import { mapActions } from 'vuex';
 import http from '../api/axios';
-import JSSHA from 'jssha';
 
 export default {
   data() {
@@ -52,12 +51,11 @@ export default {
     ...mapActions(['setUser', 'login']),
     authenticate() {
       if (this.validate()) {
-        const shaObj = new JSSHA('SHA-256', 'TEXT');
-        shaObj.update(this.password);
-        const encryptedPassword = shaObj.getHash('HEX');
-        http.post('/authenticate', { email: this.email, password: encryptedPassword }).then(response => {
-          let user = response.data.user;
-          if(response.data.result) {
+        http.post('/authenticate', { email: this.email, password: this.password }).then(response => {
+          if (response.data.errors) {
+            alert(response.data.errors[0].message);
+          } else {
+            let user = response.data.user;
             this.login();
             this.setUser({
               id: user.id,
@@ -66,9 +64,6 @@ export default {
               authority: user.authority
             });
             this.$router.push('/');
-          } else {
-            alert('Eメールまたはパスワードに誤りがあります。');
-            return;
           }
         });
       }

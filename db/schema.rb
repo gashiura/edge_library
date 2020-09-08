@@ -12,7 +12,7 @@
 
 ActiveRecord::Schema.define(version: 2019_03_10_030823) do
 
-  create_table "books", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci", force: :cascade do |t|
+  create_table "books", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8", force: :cascade do |t|
     t.string "name", limit: 200, null: false
     t.string "eg_id", limit: 10, null: false
     t.string "author", null: false
@@ -25,7 +25,7 @@ ActiveRecord::Schema.define(version: 2019_03_10_030823) do
     t.datetime "updated_at", null: false
   end
 
-  create_table "favorites", id: false, options: "ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci", force: :cascade do |t|
+  create_table "favorites", id: false, options: "ENGINE=InnoDB DEFAULT CHARSET=utf8", force: :cascade do |t|
     t.bigint "book_id"
     t.bigint "user_id"
     t.datetime "created_at", null: false
@@ -34,7 +34,7 @@ ActiveRecord::Schema.define(version: 2019_03_10_030823) do
     t.index ["user_id"], name: "index_favorites_on_user_id"
   end
 
-  create_table "rentals", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci", force: :cascade do |t|
+  create_table "rentals", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8", force: :cascade do |t|
     t.bigint "book_id", null: false
     t.bigint "user_id", null: false
     t.datetime "checkout_date", null: false
@@ -47,7 +47,7 @@ ActiveRecord::Schema.define(version: 2019_03_10_030823) do
     t.index ["user_id"], name: "index_rentals_on_user_id"
   end
 
-  create_table "reviews", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci", force: :cascade do |t|
+  create_table "reviews", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8", force: :cascade do |t|
     t.bigint "book_id", null: false
     t.bigint "user_id", null: false
     t.text "content", null: false
@@ -58,10 +58,10 @@ ActiveRecord::Schema.define(version: 2019_03_10_030823) do
     t.index ["user_id"], name: "index_reviews_on_user_id"
   end
 
-  create_table "users", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci", force: :cascade do |t|
-    t.string "name", limit: 50, null: false
-    t.string "password", null: false
+  create_table "users", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8", force: :cascade do |t|
+    t.string "uid", limit: 50, null: false
     t.string "email", limit: 254, null: false
+    t.string "password_digest", null: false
     t.integer "authority", null: false
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false

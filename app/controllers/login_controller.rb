@@ -7,12 +7,10 @@ class LoginController < ApplicationController
 
   def authenticate
     @user = User.find_by(email: params[:email])
-    @result = @user && @user.password === params[:password]
-    if @result
+    if @user&.authenticate(params[:password])
       render 'authenticate', formats: 'json', handlers: 'jbuilder'
     else
-      render json: { result: false }
+      render json: { errors: [{ message: "ログインに失敗しました。\nユーザー名かパスワードが間違っています。" }] }
     end
   end
-
 end

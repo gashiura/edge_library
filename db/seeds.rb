@@ -6,32 +6,13 @@
 #   movies = Movie.create([{ name: 'Star Wars' }, { name: 'Lord of the Rings' }])
 #   Character.create(name: 'Luke', movie: movies.first)
 require 'csv'
-require 'digest/sha2'
 require 'json'
 
-password = Digest::SHA256.hexdigest 'password'
-users = [
-  {
-    name: 'higashiura',
-    email: 'gasi3319@yahoo.co.jp',
-    password: password,
-    authority: 1
-  },
-  {
-    name: 'gashiura',
-    email: 'gashiura33@yahoo.co.jp',
-    password: password,
-    authority: 2
-  }
-]
-
-for user in users
-  User.create(
-    name: user[:name],
-    email: user[:email],
-    password: user[:password],
-    authority: user[:authority]
-  )
+[
+  User.new(uid: 'higashiura', email: 'aaa@example.com', password: 'password', authority: 1),
+  User.new(uid: 'gashiura', email: 'bbb@example.com', password: 'password', authority: 2)
+].each do |user|
+  user.save
 end
 
 CSV.foreach(Rails.root.join('db', 'seeds', 'books.csv'), headers: true) do |book|
@@ -47,91 +28,57 @@ CSV.foreach(Rails.root.join('db', 'seeds', 'books.csv'), headers: true) do |book
   )
 end
 
-rentals = [
-  {
+[
+  Rental.new(
     book_id: 1,
     user_id: 1,
     checkout_date: '2019-02-16 12:31:22',
     return_due_date: '2019-02-23 00:00:00',
     return_date: '2019-02-22 12:31:22',
-    return_approver: '早坂'
-  },
-  {
+    return_approver: '山田'
+  ),
+  Rental.new(
     book_id: 2,
     user_id: 1,
     checkout_date: '2019-03-01 12:31:22',
     return_due_date: '2019-03-15 12:31:22',
     return_date: nil,
     return_approver: nil
-  },
-  {
+  ),
+  Rental.new(
     book_id: 3,
     user_id: 1,
     checkout_date: '2019-03-01 12:31:22',
     return_due_date: '2019-03-05 12:31:22',
     return_date: nil,
     return_approver: nil
-  }
-]
-
-for rental in rentals
-  Rental.create(
-    book_id: rental[:book_id],
-    user_id: rental[:user_id],
-    checkout_date: rental[:checkout_date],
-    return_due_date: rental[:return_due_date],
-    return_date: rental[:return_date],
-    return_approver: rental[:return_approver]
   )
+].each do |rental|
+  rental.save
 end
 
-reviews = [
-  {
+[
+  Review.new(
     id: 1,
     book_id: 1,
     user_id: 1,
     content: 'linux初心者が、内部の動作について学ぶのに最適です。この本を読むことで、理解が一段階深まった気がします！',
-    point: 5,
-    createdAt: '2019/03/01 19:42:21',
-    updatedAt: '2019/03/01 19:42:21'
-  },
-  {
+    point: 5
+  ),
+  Review.new(
     id: 2,
     book_id: 1,
     user_id: 2,
     content: "まあ普通ですね。\n読みたい人は読めばいいと思います。",
-    point: 3,
-    createdAt: '2019/03/07 10:13:01',
-    updatedAt: '2019/03/07 10:13:01'
-  },
-]
-
-for review in reviews
-  Review.create(
-    id: review[:id],
-    book_id: review[:book_id],
-    user_id: review[:user_id],
-    content: review[:content],
-    point: review[:point]
-  )
+    point: 3
+  ),
+].each do |review|
+  review.save
 end
 
-favorites = [
-  {
-    id: 1,
-    book_id: 1,
-    user_id: 1
-  },
-  {
-    id: 2,
-    book_id: 2,
-    user_id: 2
-  }
-]
-
-for favorite in favorites
-  Favorite.create(
-    book_id: favorite[:book_id],
-    user_id: favorite[:user_id]
-  )
+[
+  Favorite.new(id: 1, book_id: 1, user_id: 1),
+  Favorite.new(id: 2, book_id: 2, user_id: 2)
+].each do |favorite|
+  favorite.save
 end
