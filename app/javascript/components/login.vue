@@ -51,7 +51,7 @@ export default {
     ...mapActions(['setUser', 'login']),
     authenticate() {
       if (this.validate()) {
-        http.post('/authenticate', { email: this.email, password: this.password }).then(response => {
+        http.post('/api/login', { email: this.email, password: this.password }).then(response => {
           if (response.data.errors) {
             alert(response.data.errors[0].message);
           } else {
