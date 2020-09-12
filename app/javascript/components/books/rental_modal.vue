@@ -87,7 +87,7 @@ export default {
     },
     createRental() {
       if(confirm('書籍をレンタルしますか？')) {
-        http.post('/api/rentals/create', {
+        http.post('/api/rentals', {
           book_id: this.book.id,
           user_id: this.user.id,
           checkout_date: new Date,

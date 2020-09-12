@@ -118,7 +118,7 @@ export default {
       this.toggleModal(true);
     },
     createFavorite() {
-      http.post('/api/favorites/create', {
+      http.post('/api/favorites', {
         book_id: this.bookId,
         user_id: this.user.id
       }).then(response => {
@@ -129,7 +129,7 @@ export default {
       });
     },
     deleteFavorite() {
-      http.delete(`/api/favorites/destroy/${this.bookId}/${this.user.id}`).then(response => {
+      http.delete(`/api/favorites/${this.bookId}/${this.user.id}`).then(response => {
         alert(response.data.message);
         if(response.data.status === 'success') {
           this.isFavorite = false;

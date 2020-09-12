@@ -54,7 +54,7 @@ export default {
   },
   methods: {
     createReview: function() {
-      http.post('api/reviews/create', {
+      http.post('api/reviews', {
         book_id: this.$route.params.id,
         user_id: this.user.id,
         point: this.point,
