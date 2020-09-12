@@ -2,7 +2,7 @@
   <footer class="footer-container">
     <hr>
     <div class="footer-text">
-      Copyright © 2019 MebersEdge .inc All Rights Reserved.
+      Copyright © 2020 gashiura All Rights Reserved.
     </div>
   </footer>
 </template>
