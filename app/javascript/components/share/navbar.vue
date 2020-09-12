@@ -45,15 +45,20 @@
 
 <script>
 import { mapActions } from 'vuex';
+import http from '../../api/axios';
 
 export default {
   methods: {
     ...mapActions(['toggleNavBar', 'logout']),
     checkLogout: function() {
       if(confirm('ログアウトしますか？')) {
-        this.toggleNavBar();
-        this.logout();
-        this.$router.push({ name: 'login' });
+        http.delete('/api/logout').then(() => {
+          this.toggleNavBar();
+          this.logout();
+          this.$router.push({ name: 'login' });
+        }).catch(() => {
+          alert('ログアウトに失敗しました。')
+        });
       }
     }
   }

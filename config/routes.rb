@@ -3,6 +3,7 @@ Rails.application.routes.draw do
 
   namespace :api do
     post 'login' => 'sessions#create'
+    delete 'logout' => 'sessions#destroy'
 
     get 'books' => 'books#index'
     get 'books/:id' => 'books#show'

@@ -8,4 +8,9 @@ class Api::SessionsController < ApplicationController
       render json: { errors: [{ message: "ログインに失敗しました。\nユーザー名かパスワードが間違っています。" }] }
     end
   end
+
+  def destroy
+    log_out
+    head :no_content
+  end
 end
