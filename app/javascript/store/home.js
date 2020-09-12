@@ -10,12 +10,11 @@ const mutations = {
   toggleModal(state, payload) {
     state.showModal = payload;
   },
-  getRentals(state, payload) {
-    const userId = payload;
-    http.get(`/api/rentals/${userId}`).then(response => (state.rentals = response.data.rentals));
+  getRentals(state) {
+    http.get(`/api/rentals`).then(response => (state.rentals = response.data.rentals));
   },
   getRentalBook(state, payload) {
-    http.get(`/api/rentals/show/${payload}`).then(response => (state.rentalBook = response.data.rental));
+    http.get(`/api/rentals/${payload}`).then(response => (state.rentalBook = response.data.rental));
   }
 };
 

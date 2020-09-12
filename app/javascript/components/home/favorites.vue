@@ -69,7 +69,7 @@ export default {
   },
   methods: {
     getFavorites() {
-      http.get(`/api/favorites/${this.user.id}`).then(response => (
+      http.get(`/api/favorites`).then(response => (
         this.favorites = response.data.favorites)
       );
     },

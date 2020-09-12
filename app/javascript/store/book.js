@@ -26,7 +26,7 @@ const getters = {
 const actions = {
   getBook({ commit }, payload) {
     const bookId = payload;
-    http.get(`/api/books/show/${bookId}`).then(response => {
+    http.get(`/api/books/${bookId}`).then(response => {
       commit('getBook', response.data.book);
     });
 

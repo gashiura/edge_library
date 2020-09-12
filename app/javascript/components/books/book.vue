@@ -108,7 +108,7 @@ export default {
   },
   created() {
     this.getBook(this.bookId);
-    http.get(`/api/favorites/exists/${this.bookId}/${this.user.id}`).then(response => {
+    http.get(`/api/favorites/exists/${this.bookId}`).then(response => {
       this.isFavorite = response.data.exists;
     });
   },
@@ -119,8 +119,7 @@ export default {
     },
     createFavorite() {
       http.post('/api/favorites', {
-        book_id: this.bookId,
-        user_id: this.user.id
+        book_id: this.bookId
       }).then(response => {
         alert(response.data.message);
         if(response.data.status === 'success') {
@@ -129,7 +128,7 @@ export default {
       });
     },
     deleteFavorite() {
-      http.delete(`/api/favorites/${this.bookId}/${this.user.id}`).then(response => {
+      http.delete(`/api/favorites/${this.bookId}`).then(response => {
         alert(response.data.message);
         if(response.data.status === 'success') {
           this.isFavorite = false;

@@ -1,10 +1,9 @@
 require 'date'
 
 class Api::RentalsController < ApplicationController
-
   def index
     @rentals = RentalDecorator.decorate_collection(
-      Rental.where(user_id: params[:user_id], return_date: nil)
+      Rental.where(user_id: current_user.id, return_date: nil)
     )
     render 'index', formats: 'json', handlers: 'jbuilder'
   end
@@ -16,7 +15,7 @@ class Api::RentalsController < ApplicationController
 
   def create
     begin
-      Rental.create(rental_params)
+      Rental.create(rental_params.merge({ user_id: current_user.id }))
       render json: { status: 'success', message: "書籍をレンタルしました。" }
     rescue
       render json: { status: 'error', message: "書籍のレンタルでエラーが発生しました。" }
@@ -48,10 +47,8 @@ class Api::RentalsController < ApplicationController
   def rental_params
     params.require(:rental).permit(
       :book_id,
-      :user_id,
       :checkout_date,
       :return_due_date
     )
   end
-
 end
