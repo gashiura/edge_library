@@ -25,7 +25,7 @@ ActiveRecord::Schema.define(version: 2019_03_10_030823) do
     t.datetime "updated_at", null: false
   end
 
-  create_table "favorites", id: false, options: "ENGINE=InnoDB DEFAULT CHARSET=utf8", force: :cascade do |t|
+  create_table "favorites", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8", force: :cascade do |t|
     t.bigint "book_id"
     t.bigint "user_id"
     t.datetime "created_at", null: false

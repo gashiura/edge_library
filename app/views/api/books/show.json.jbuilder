@@ -5,7 +5,7 @@ json.book do
   json.set! :reviews do
     json.array!(@book.reviews) do |review|
       json.partial! partial: 'api/reviews/review', locals: { review: review }
-      json.user_name(review.user.name)
+      json.uid(review.user.uid)
     end
   end
 end

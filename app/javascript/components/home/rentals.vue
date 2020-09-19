@@ -95,9 +95,6 @@ export default {
       ]
     };
   },
-  created() {
-    this.getRentals(this.user.id);
-  },
   computed: {
     ...mapGetters(['user']),
     ...mapGetters('home', ['rentals']),
@@ -110,6 +107,9 @@ export default {
     existsRetalBook: function() {
       return this.rentals.length > 0;
     }
+  },
+  created() {
+    this.getRentals(this.user.id);
   },
   methods: {
     ...mapActions('home', ['toggleModal', 'getRentals', 'getRentalBook']),

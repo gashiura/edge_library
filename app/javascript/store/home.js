@@ -11,7 +11,7 @@ const mutations = {
     state.showModal = payload;
   },
   getRentals(state) {
-    http.get(`/api/rentals`).then(response => (state.rentals = response.data.rentals));
+    http.get('/api/rentals').then(response => (state.rentals = response.data.rentals));
   },
   getRentalBook(state, payload) {
     http.get(`/api/rentals/${payload}`).then(response => (state.rentalBook = response.data.rental));

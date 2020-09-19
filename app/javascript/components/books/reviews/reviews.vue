@@ -15,7 +15,7 @@
             :enable-click="false"
           />
           <div class="review-user">
-            投稿者：{{ review.user_name }}
+            投稿者：{{ review.uid }}
           </div>
           <div class="reviwe-date">
             投稿日：{{ review.created_at }}

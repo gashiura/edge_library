@@ -59,7 +59,7 @@ export default {
             this.login();
             this.setUser({
               id: user.id,
-              name: user.name,
+              uid: user.uid,
               email: user.email,
               authority: user.authority
             });

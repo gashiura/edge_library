@@ -57,7 +57,7 @@ export default {
           this.logout();
           this.$router.push({ name: 'login' });
         }).catch(() => {
-          alert('ログアウトに失敗しました。')
+          alert('ログアウトに失敗しました。');
         });
       }
     }

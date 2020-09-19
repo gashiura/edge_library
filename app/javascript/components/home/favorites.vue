@@ -6,7 +6,8 @@
         <button
           :class="{ 'move-button--disable': totalPage === 1 || currentPage === 1 }"
           class="move-button"
-          @click="movePrev">
+          @click="movePrev"
+        >
           ◀︎
         </button>
       </div>
@@ -21,7 +22,7 @@
             class="favorite-image"
           >
           <router-link
-            to="/book/1"
+            :to="`/book/${favorite.book_id}`"
             class="favorite-link"
           >
             {{ favorite.book_name }}
@@ -32,7 +33,8 @@
         <button
           :class="{ 'move-button--disable': totalPage === 1 || currentPage === totalPage }"
           class="move-button"
-          @click="moveNext">
+          @click="moveNext"
+        >
           ▶︎
         </button>
       </div>
@@ -69,7 +71,7 @@ export default {
   },
   methods: {
     getFavorites() {
-      http.get(`/api/favorites`).then(response => (
+      http.get('/api/favorites').then(response => (
         this.favorites = response.data.favorites)
       );
     },

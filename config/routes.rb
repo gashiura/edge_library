@@ -18,6 +18,6 @@ Rails.application.routes.draw do
     get 'favorites' => 'favorites#index'
     get 'favorites/exists/:book_id' => 'favorites#exists?'
     post 'favorites' => 'favorites#create'
-    delete 'favorites/:book_id' => 'favorites#destroy'
+    delete 'favorites/:id' => 'favorites#destroy'
   end
 end
