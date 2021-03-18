@@ -5,10 +5,13 @@ RUN curl https://dl.yarnpkg.com/debian/pubkey.gpg | apt-key add - && \
     apt-get install -y nodejs yarn default-mysql-client
 
 ENV ROOT_PATH /home/edge_library
+ENV BUNDLER_VERSION 2.2.14
 WORKDIR $ROOT_PATH
 COPY Gemfile $ROOT_PATH/Gemfile
 COPY Gemfile.lock $ROOT_PATH/Gemfile.lock
-RUN bundle install
+RUN gem update --system && \
+    gem install bundler -v $BUNDLER_VERSION && \
+    bundle install -j 4
 
 COPY package.json $ROOT_PATH/package.json
 COPY yarn.lock $ROOT_PATH/yarn.lock
