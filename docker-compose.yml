@@ -20,9 +20,22 @@ services:
       - "6379:6379"
     volumes:
       - "./tmp/data/redis:/data"
+  elasticsearch:
+    container_name: es
+    build:
+      context: .
+      dockerfile: ./docker/elasticsearch/Dockerfile
+    environment:
+      - discovery.type=single-node
+    volumes:
+      - ./tmp/elasticsearch/data:/usr/share/elasticsearch/data
+    ports:
+      - 9200:9200
   web:
     container_name: web
-    build: .
+    build:
+      context: .
+      dockerfile: ./docker/web/Dockerfile
     command: bash -c "rm -f tmp/pids/server.pid && bundle exec rails s -p 3000 -b '0.0.0.0'"
     environment:
       MYSQL_USER: mysql

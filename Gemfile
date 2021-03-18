@@ -56,3 +56,5 @@ gem 'tzinfo-data', platforms: [:mingw, :mswin, :x64_mingw, :jruby]
 gem 'turbolinks', '~> 5.2.0'
 gem 'draper', '~> 4.0.1'
 gem 'aws-sdk', '~> 3.0.1'
+gem 'elasticsearch-model', '~> 7.1.0'
+gem 'elasticsearch-rails', '~> 7.1.0'
