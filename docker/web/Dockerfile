@@ -13,6 +13,7 @@ COPY Gemfile.lock $ROOT_PATH/Gemfile.lock
 RUN gem update --system && \
     gem install bundler -v $BUNDLER_VERSION && \
     bundle install -j 4 && \
+    mv -f $ROOT_PATH/Gemfile /tmp/ && \
     mv -f $ROOT_PATH/Gemfile.lock /tmp/
 
 COPY package.json $ROOT_PATH/package.json
@@ -20,6 +21,7 @@ COPY yarn.lock $ROOT_PATH/yarn.lock
 RUN yarn install
 
 COPY . $ROOT_PATH
-RUN  mv -f /tmp/Gemfile.lock $ROOT_PATH/
+RUN  mv -f /tmp/Gemfile $ROOT_PATH/ && \
+     mv -f /tmp/Gemfile.lock $ROOT_PATH/
 
 CMD ["rails", "server", "-b", "0.0.0.0"]
