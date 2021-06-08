@@ -26,5 +26,15 @@ module EdgeLibrary
     # Application configuration can go into files in config/initializers
     # -- all .rb files in that directory are automatically loaded after loading
     # the framework and any gems in your application.
+    config.cache_store = :null_store
+    config.session_store :redis_store, {
+      servers: {
+        host: ENV['REDIS_HOST'] || 'redis',
+        port: 6379,
+        db: 1,
+        namespace: 'session'
+      },
+      expire_after: 90.minutes
+    }
   end
 end
